@@ -199,13 +199,13 @@
             position: relative;
             transform-style: preserve-3d;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 104, 24, 0.2);
+            overflow: hidden;
         }
 
         .perfume-img {
-            max-width: 85%;
-            max-height: 85%;
-            object-fit: contain;
-            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9));
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transform: translateZ(50px);
             transition: transform 0.3s ease;
         }
@@ -373,8 +373,8 @@
 
         <div class="hero-image-container">
             <div class="perfume-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-                <!-- Рабочая ссылка на флакон Armani Stronger With You Intensely -->
-                <img src="https://parfums.ua/uploads/brand/original/giorgio-armani-emporio-armani-stronger-with-you-intensely.png" alt="Armani Stronger With You Intensely розпив" class="perfume-img">
+                <!-- Твоя загруженная картинка -->
+                <img src="armani.jpg" alt="Armani Stronger With You Intensely" class="perfume-img">
             </div>
         </div>
     </section>
