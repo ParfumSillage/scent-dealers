@@ -1,991 +1,506 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCENT DEALERS | Stronger With You Intensely</title>
+    <title>Оригінальні парфуми на розпив | SCENT DEALERS Україна</title>
+    
+    <!-- SEO Мета-теги для Google -->
+    <meta name="description" content="Купити оригінальні чоловічі та жіночі парфуми на розпив в Україні. Armani, Tom Ford, Creed та інші. 100% оригінальна парфумерія від 5 мл. Доставка по Україні.">
+    <meta name="keywords" content="купити парфуми на розпив, розпив парфумів Україна, розпив духів, оригінальні парфуми розпив, Armani Stronger With You розпив, SCENT DEALERS">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph (Відображення в соцмережах) -->
+    <meta property="og:title" content="SCENT DEALERS | Елітна парфумерія на розпив">
+    <meta property="og:description" content="Оригінальні парфуми на розпив від 5 мл з гарантією стійкості.">
+    <meta property="og:type" content="website">
 
-    <!-- Google Fonts -->
+    <!-- Подключение шрифтов Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome & Lucide Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- GSAP for World-Class Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Библиотеки анимаций GSAP и VanillaTilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
-        /* ==========================================================================
-           RESET & CORE STYLES
-           ========================================================================== */
         :root {
-            --bg-dark: #070605;
-            --bg-card: rgba(22, 18, 14, 0.75);
-            --gold-primary: #f59e0b;
-            --gold-light: #fbbf24;
-            --amber-accent: #d97706;
-            --amber-glow: rgba(217, 119, 6, 0.35);
-            --text-light: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-glow: rgba(245, 158, 11, 0.25);
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --font-accent: 'Playfair Display', serif;
+            --bg-color: #0d0a08;
+            --card-bg: rgba(25, 20, 15, 0.65);
+            --accent-gold: #e5a93c;
+            --accent-amber: #d96818;
+            --text-light: #f8f5f0;
+            --text-muted: #a69d95;
+            --border-glow: rgba(229, 169, 60, 0.3);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-light);
-            font-family: var(--font-body);
+            font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
-            selection-background-color: var(--amber-accent);
-            selection-color: #fff;
         }
 
-        /* Background Animated Particles Gradient Canvas */
-        #bg-canvas {
+        /* Частицы заднего фона */
+        #particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 0;
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* Glassmorphism Effect */
-        .glass-panel {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(13, 10, 8, 0.85);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Typography */
-        h1, h2, h3, .brand-font {
-            font-family: var(--font-heading);
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
             letter-spacing: 2px;
+            color: var(--text-light);
             text-transform: uppercase;
         }
 
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, var(--amber-accent) 100%);
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(229, 169, 60, 0.4);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(229, 169, 60, 0.8);
+        }
+
+        /* Главный экран (Hero) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 120px 8% 60px;
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 550px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(229, 169, 60, 0.15);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #d4c5b3 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Buttons & CTA */
-        .btn-gold {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 18px 42px;
-            font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #000;
-            background: linear-gradient(135deg, #fef08a 0%, var(--gold-light) 50%, var(--amber-accent) 100%);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px var(--amber-glow);
-            text-decoration: none;
-            z-index: 2;
-        }
-
-        .btn-gold::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            transition: 0.6s;
-        }
-
-        .btn-gold:hover::before {
-            left: 100%;
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(217, 119, 6, 0.6);
-        }
-
-        /* Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 24px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: 0.4s ease;
-        }
-
-        header.scrolled {
-            padding: 16px 8%;
-            background: rgba(7, 6, 5, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-glow);
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--gold-light);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 600;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--gold-light);
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* ==========================================================================
-           HERO SECTION
-           ========================================================================== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            padding: 140px 8% 60px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 40px;
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 620px;
-        }
-
-        .badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 30px;
-            color: var(--gold-light);
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-
-        .hero-title {
-            font-size: 3.8rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-accent);
-            font-size: 1.35rem;
-            font-style: italic;
+        p.subtitle {
+            font-size: 16px;
             color: var(--text-muted);
             margin-bottom: 30px;
         }
 
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
         }
 
-        .stat-item h4 {
-            font-size: 2rem;
-            color: var(--gold-light);
-            font-weight: 800;
-            margin-bottom: 4px;
+        .spec-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
         }
 
-        .stat-item p {
-            font-size: 0.8rem;
+        .spec-item .title {
+            font-size: 12px;
             color: var(--text-muted);
-            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        /* 3D Bottle Showcase Wrapper */
-        .hero-visual {
+        .spec-item .value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        /* 3D Карточка с флаконом */
+        .hero-image-container {
             position: relative;
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
         }
 
-        .bottle-card-3d {
-            position: relative;
+        .perfume-card {
             width: 100%;
-            max-width: 480px;
-            height: 580px;
-            border-radius: 28px;
+            max-width: 420px;
+            height: 520px;
+            background: radial-gradient(circle at center, rgba(217, 104, 24, 0.2) 0%, rgba(13, 10, 8, 0.8) 70%);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px;
+            position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 104, 24, 0.2);
         }
 
-        .aura-glow {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            background: radial-gradient(circle, var(--amber-accent) 0%, rgba(217, 119, 6, 0) 70%);
-            filter: blur(50px);
-            opacity: 0.6;
-            animation: pulseAura 4s infinite alternate ease-in-out;
-            z-index: 1;
-        }
-
-        @keyframes pulseAura {
-            0% { transform: scale(0.9); opacity: 0.4; }
-            100% { transform: scale(1.2); opacity: 0.75; }
-        }
-
-        .bottle-image {
-            position: relative;
-            width: 300px;
-            height: auto;
-            z-index: 3;
-            filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.8));
+        .perfume-img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9));
             transform: translateZ(50px);
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease;
         }
 
-        .floating-element {
-            position: absolute;
-            z-index: 4;
-            transform: translateZ(80px);
-            animation: floatSlow 6s ease-in-out infinite alternate;
-        }
-
-        .floating-element.badge-48h {
-            top: 40px;
-            left: 20px;
-        }
-
-        .floating-element.badge-notes {
-            bottom: 50px;
-            right: 20px;
-        }
-
-        @keyframes floatSlow {
-            0% { transform: translateZ(80px) translateY(0px); }
-            100% { transform: translateZ(80px) translateY(-15px); }
-        }
-
-        /* ==========================================================================
-           PYRAMID / NOTES SECTION
-           ========================================================================== */
-        .section {
-            padding: 120px 8%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
+        /* Преимущества розлива */
+        .notes-section {
+            padding: 100px 8%;
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 70px;
         }
 
-        .section-header h2 {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: var(--text-light);
         }
 
         .notes-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
         .note-card {
-            padding: 40px 30px;
-            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 25px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s ease;
         }
 
         .note-card:hover {
+            border-color: var(--accent-gold);
             transform: translateY(-10px);
-            border-color: var(--gold-light);
-            box-shadow: 0 20px 40px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 10px 30px rgba(229, 169, 60, 0.15);
         }
 
         .note-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--gold-light);
-            border: 1px solid var(--border-glow);
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .note-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-            color: #fff;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
         }
 
-        .note-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* ==========================================================================
-           SHOWCASE / HIGHLIGHTS
-           ========================================================================== */
-        .banner-highlight {
-            position: relative;
-            border-radius: 30px;
-            padding: 80px 60px;
-            background: linear-gradient(135deg, rgba(30, 22, 16, 0.9), rgba(12, 10, 8, 0.95)),
-                        url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1600&auto=format&fit=crop') center/cover;
-            border: 1px solid var(--border-glow);
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 40px;
-            overflow: hidden;
-        }
-
-        .banner-text h3 {
-            font-size: 2.6rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .banner-text p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 36px;
-        }
-
-        /* ==========================================================================
-           REVIEWS & TESTIMONIALS
-           ========================================================================== */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .review-card {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .stars {
-            color: var(--gold-light);
-            margin-bottom: 16px;
-            font-size: 0.9rem;
-        }
-
-        .review-text {
-            font-style: italic;
-            color: #d1d5db;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-        }
-
-        .reviewer-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .reviewer-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--amber-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #000;
-            font-family: var(--font-heading);
-        }
-
-        /* ==========================================================================
-           ORDER / TELEGRAM BUY MODAL & FORM
-           ========================================================================== */
+        /* Оформить заказ */
         .order-section {
-            background: radial-gradient(circle at center, rgba(217, 119, 6, 0.15) 0%, transparent 70%);
-        }
-
-        .order-box {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 50px;
+            padding: 80px 8%;
+            background: linear-gradient(180deg, transparent 0%, rgba(217, 104, 24, 0.1) 100%);
             text-align: center;
         }
 
-        .price-tag {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 16px;
+        .price-box {
             margin: 30px 0;
         }
 
-        .old-price {
-            font-size: 1.6rem;
+        .price-box p {
             color: var(--text-muted);
-            text-decoration: line-through;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
 
-        .current-price {
-            font-size: 3.2rem;
+        .new-price {
+            font-size: 36px;
             font-weight: 900;
-            color: var(--gold-light);
-            font-family: var(--font-heading);
+            color: var(--accent-gold);
         }
 
-        .order-features {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .order-features span {
-            display: flex;
+        .cta-btn {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+            color: #000;
+            padding: 18px 45px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(229, 169, 60, 0.4);
         }
 
-        /* ==========================================================================
-           FOOTER
-           ========================================================================== */
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(229, 169, 60, 0.8);
+        }
+
+        /* Футер */
         footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 60px 8% 40px;
+            padding: 40px 8%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .footer-copy {
             color: var(--text-muted);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            font-size: 14px;
         }
 
-        /* ==========================================================================
-           RESPONSIVE DESIGN
-           ========================================================================== */
-        @media (max-width: 1024px) {
+        /* Адаптивность для мобилок */
+        @media (max-width: 900px) {
             .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 120px;
-            }
-
-            .hero-content {
-                margin: 0 auto;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .notes-grid, .reviews-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .banner-highlight {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                padding-top: 140px;
                 text-align: center;
             }
-        }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .specs-grid {
+                text-align: left;
             }
 
-            .hero-title {
-                font-size: 2.5rem;
+            h1 {
+                font-size: 34px;
             }
 
-            .notes-grid, .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .bottle-card-3d {
-                height: 450px;
-            }
-
-            .bottle-image {
-                width: 220px;
-            }
-
-            .order-box {
-                padding: 40px 24px;
+            .perfume-card {
+                height: 400px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Canvas Animation Background -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- Канвас анимации частиц -->
+    <canvas id="particles-canvas"></canvas>
 
-    <!-- Header Navigation -->
-    <header id="header">
-        <a href="#" class="logo">
-            SCENT<span>DEALERS</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about">Об Аромате</a></li>
-            <li><a href="#pyramid">Пирамида</a></li>
-            <li><a href="#reviews">Отзывы</a></li>
-            <li><a href="#order">Заказать</a></li>
-        </ul>
-        <a href="#order" class="btn-gold" style="padding: 12px 28px; font-size: 0.8rem;"> КУПИТЬ</a>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">SCENT <span>DEALERS</span></div>
+        <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="nav-btn">Замовити</a>
     </header>
 
-    <!-- Main Hero Section -->
-    <section class="hero" id="about">
+    <!-- Главный блок -->
+    <section class="hero">
         <div class="hero-content">
-            <div class="badge-tag">
-                <i class="fa-solid fa-fire-flame-curved"></i> Топ Продаж 2026
-            </div>
-            <h1 class="hero-title">
-                Stronger With You <br>
-                <span class="gold-gradient-text">INTENSELY</span>
-            </h1>
-            <p class="hero-subtitle">
-                "Аромат, который разжигает страсть, притягивает взгляды и оставляет магнетический шлейф."
-            </p>
-
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <h4>48Ч</h4>
-                    <p>Стойкость</p>
+            <span class="badge">🔥 Оригінальний розпив в Україні</span>
+            <h1>Оригінальні парфуми на розлив</h1>
+            <p class="subtitle">Спробуй легендарний аромат Armani Stronger With You Intensely та інші топові бренди без переплат за цілий флакон. Зручні атомайзери від 5 мл.</p>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="title">Якість</div>
+                    <div class="value">100% Оригінал</div>
                 </div>
-                <div class="stat-item">
-                    <h4>100%</h4>
-                    <p>Оригинал</p>
+                <div class="spec-item">
+                    <div class="title">Об'єми</div>
+                    <div class="value">5, 10, 20, 30 мл</div>
                 </div>
-                <div class="stat-item">
-                    <h4>100ml</h4>
-                    <p>Объем</p>
+                <div class="spec-item">
+                    <div class="title">Стійкість</div>
+                    <div class="value">до 48 годин</div>
+                </div>
+                <div class="spec-item">
+                    <div class="title">Доставка</div>
+                    <div class="value">Нова Пошта</div>
                 </div>
             </div>
 
-            <a href="#order" class="btn-gold">
-                <i class="fa-solid fa-bag-shopping"></i> Заказать со скидкой
-            </a>
+            <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="cta-btn">Замовити в Telegram</a>
         </div>
 
-        <!-- 3D Card Interactive Bottle Showcase -->
-        <div class="hero-visual">
-            <div class="bottle-card-3d glass-panel" id="tiltCard">
-                <div class="aura-glow"></div>
-                
-                <!-- SVG Stylized Custom Bottle Illustration Overlay -->
-                <svg class="bottle-image" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#f59e0b" />
-                            <stop offset="50%" stop-color="#b45309" />
-                            <stop offset="100%" stop-color="#451a03" />
-                        </linearGradient>
-                        <linearGradient id="capGrad" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#334155" />
-                            <stop offset="50%" stop-color="#0f172a" />
-                            <stop offset="100%" stop-color="#020617" />
-                        </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    
-                    <!-- Cap / Ring Rings -->
-                    <rect x="110" y="40" width="80" height="30" rx="6" fill="url(#capGrad)" stroke="#f59e0b" stroke-width="1.5" />
-                    <circle cx="150" cy="35" r="22" fill="url(#capGrad)" stroke="#d97706" stroke-width="2" />
-                    
-                    <!-- Glass Body -->
-                    <rect x="60" y="80" width="180" height="260" rx="35" fill="url(#liquidGrad)" stroke="rgba(245, 158, 11, 0.6)" stroke-width="3" filter="url(#glow)"/>
-                    
-                    <!-- Glass Highlights -->
-                    <path d="M 75 100 Q 70 200 75 320" stroke="rgba(255, 255, 255, 0.4)" stroke-width="5" stroke-linecap="round"/>
-                    
-                    <!-- Label Badge -->
-                    <rect x="85" y="150" width="130" height="110" rx="12" fill="#0c0a09" stroke="#d97706" stroke-width="1.5"/>
-                    <text x="150" y="180" font-family="Cinzel" font-size="10" fill="#9ca3af" text-anchor="middle" letter-spacing="2">EMPORIO ARMANI</text>
-                    <text x="150" y="205" font-family="Cinzel" font-size="12" fill="#ffffff" font-weight="bold" text-anchor="middle" letter-spacing="1">STRONGER WITH</text>
-                    <text x="150" y="230" font-family="Cinzel" font-size="18" fill="#f59e0b" font-weight="900" text-anchor="middle" letter-spacing="2">YOU</text>
-                    <text x="150" y="248" font-family="Montserrat" font-size="8" fill="#d1d5db" text-anchor="middle" letter-spacing="3">INTENSELY</text>
-                </svg>
-
-                <div class="floating-element badge-48h glass-panel" style="padding: 12px 20px; border-radius: 16px;">
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Стойкость</div>
-                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--gold-light);"><i class="fa-solid fa-clock"></i> 48 Часов</div>
-                </div>
-
-                <div class="floating-element badge-notes glass-panel" style="padding: 12px 20px; border-radius: 16px;">
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Главные Ноты</div>
-                    <div style="font-size: 1rem; font-weight: 700; color: #fff;"><i class="fa-solid fa-pepper-hot" style="color: #ef4444;"></i> Ваниль & Розовый Перец</div>
-                </div>
+        <div class="hero-image-container">
+            <div class="perfume-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <img src="https://i.ibb.co/6P2C44B/armani.png" alt="Парфуми на розпив Україна" class="perfume-img">
             </div>
         </div>
     </section>
 
-    <!-- Olfactory Pyramid / Ingredients -->
-    <section class="section" id="pyramid">
-        <div class="section-header">
-            <div class="badge-tag">Ольфакторная пирамида</div>
-            <h2>Симфония <span class="gold-gradient-text">Аромата</span></h2>
-            <p style="color: var(--text-muted);">Идеально сбалансированная композиция восточно-фужерного характера.</p>
-        </div>
-
+    <!-- Переваги розпиву -->
+    <section class="notes-section">
+        <h2 class="section-title">Чому варто купувати розпив?</h2>
         <div class="notes-grid">
-            <div class="note-card glass-panel">
-                <div class="note-icon">
-                    <i class="fa-solid fa-seedling"></i>
-                </div>
-                <h3>Верхние Ноты</h3>
-                <p>Розовый перец, можжевельник и эссенция фиалки создают пряное и яркое первое впечатление.</p>
+            <div class="note-card">
+                <span class="note-icon">💎</span>
+                <h3>100% Оригінал</h3>
+                <p>Ми розпиваємо лише оригінальні флакони. Жодних копій чи підробок — тільки якісний продукт.</p>
             </div>
-
-            <div class="note-card glass-panel">
-                <div class="note-icon">
-                    <i class="fa-solid fa-fire"></i>
-                </div>
-                <h3>Ноты Сердца</h3>
-                <p>Сладкая карамель, корица и шалфей добавляют чувственное тепло и гурманскую глубину.</p>
+            <div class="note-card">
+                <span class="note-icon">💰</span>
+                <h3>Вигода та Економія</h3>
+                <p>Не потрібно купувати великий флакон за тисячі гривень. Візьми необхідний об'єм за вигідною ціною.</p>
             </div>
-
-            <div class="note-card glass-panel">
-                <div class="note-icon">
-                    <i class="fa-solid fa-crown"></i>
-                </div>
-                <h3>Базовый Шлейф</h3>
-                <p>Бобы тонка, бурбонская ваниль и замша оставляют незабываемый, пленительный след.</p>
+            <div class="note-card">
+                <span class="note-icon">🧪</span>
+                <h3>Зручні атомайзери</h3>
+                <p>Кожне замовлення відправляється у якісному скляному атомайзері з металевим розпилювачем.</p>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Banner Highlight -->
-    <section class="section">
-        <div class="banner-highlight">
-            <div class="banner-text">
-                <div class="badge-tag">Оригинал из Франции</div>
-                <h3>Аромат, Который Выделяет Из Толпы</h3>
-                <p>Stronger With You Intensely — это выбор уверенных мужчин, которые ценят стиль, роскошь и внимание. Подходит как для вечерних выходов, так и для особых моментов.</p>
-                <a href="#order" class="btn-gold"><i class="fa-paper-plane fa-solid"></i> Заказать с доставкой</a>
-            </div>
-            <div style="text-align: center;">
-                <div class="glass-panel" style="padding: 30px; display: inline-block;">
-                    <i class="fa-solid fa-shield-halved" style="font-size: 3.5rem; color: var(--gold-light); margin-bottom: 15px;"></i>
-                    <h4 style="font-family: var(--font-heading);">Гарантия Качества</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">100% стойкость и оригинальный батч-код на каждом флаконе.</p>
-                </div>
-            </div>
+    <!-- Оформить заказ -->
+    <section class="order-section" id="order">
+        <h2 class="section-title">Хочеш підібрати аромат?</h2>
+        <p>Натискай на кнопку нижче, щоб перейти в наш Telegram-канал та зробити замовлення</p>
+        
+        <div class="price-box">
+            <p>Доступні об'єми: 5 мл / 10 мл / 20 мл / 30 мл</p>
+            <span class="new-price">Ціни від 190 грн</span>
         </div>
+
+        <!-- Ссылка ведет на твой Telegram канал/чат -->
+        <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="cta-btn">
+            Замовити в Telegram
+        </a>
     </section>
 
-    <!-- Customer Reviews -->
-    <section class="section" id="reviews">
-        <div class="section-header">
-            <div class="badge-tag">Отзывы клиентов</div>
-            <h2>Что Говорят <span class="gold-gradient-text">Покупатели</span></h2>
-        </div>
-
-        <div class="reviews-grid">
-            <div class="review-card glass-panel">
-                <div>
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">"Аромат просто бомба! Девушки постоянно спрашивают, что за парфюм. Стойкость на одежде держится больше 2-х дней."</p>
-                </div>
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">АМ</div>
-                    <div>
-                        <h4 style="font-size: 0.95rem;">Александр М.</h4>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Проверенный покупатель</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card glass-panel">
-                <div>
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">"Заказывал в Scent Dealers. Пришло очень быстро, батч-код бьется, флакон идеальный. Ваниль и перец звучат максимально дорого!"</p>
-                </div>
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">ДВ</div>
-                    <div>
-                        <h4 style="font-size: 0.95rem;">Дмитрий В.</h4>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Проверенный покупатель</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card glass-panel">
-                <div>
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">"Самый шлейфовый аромат из моей коллекции. Покупала парню на подарок — он в восторге! Спасибо за подарок в заказе!"</p>
-                </div>
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">ЕК</div>
-                    <div>
-                        <h4 style="font-size: 0.95rem;">Елена К.</h4>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Проверенный покупатель</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Order / Telegram Modal Section -->
-    <section class="section order-section" id="order">
-        <div class="order-box glass-panel">
-            <div class="badge-tag"><i class="fa-solid fa-bolt"></i> Спецпредложение</div>
-            <h2>Закажите Свой Флакон Прямо Сейчас</h2>
-            
-            <div class="price-tag">
-                <span class="old-price">4 500 грн</span>
-                <span class="current-price">2 890 грн</span>
-            </div>
-
-            <div class="order-features">
-                <span><i class="fa-solid fa-check" style="color: var(--gold-light);"></i> В наличии 100 мл</span>
-                <span><i class="fa-solid fa-truck-fast" style="color: var(--gold-light);"></i> Быстрая доставка</span>
-                <span><i class="fa-solid fa-gift" style="color: var(--gold-light);"></i> Подарок к заказу</span>
-            </div>
-
-            <a href="https://t.me/" target="_blank" class="btn-gold" style="width: 100%; max-width: 400px;">
-                <i class="fa-brands fa-telegram" style="font-size: 1.3rem;"></i> Заказать в Telegram
-            </a>
-            
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 20px;">
-                Менеджер ответит вам в течение 2 минут и оформит отправку!
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- Футер -->
     <footer>
-        <div class="footer-logo logo" style="justify-content: center;">
-            SCENT<span>DEALERS</span>
-        </div>
-        <p class="footer-copy">
-            © 2026 SCENT DEALERS. Все права защищены. Премиальная парфюмерия.
-        </p>
+        <p>© 2026 SCENT DEALERS Україна. Оригінальна парфумерія на розпив.</p>
     </footer>
 
-    <!-- GSAP & Interactivity Scripts -->
+    <!-- Скрипты анимации -->
     <script>
-        // Initialize Background Dynamic Canvas Particles
-        const canvas = document.getElementById('bg-canvas');
+        // Инициализация 3D-наклона карточки
+        VanillaTilt.init(document.querySelector(".perfume-card"));
+
+        // Анимация текста и блоков при скролле (GSAP)
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".hero-content", {
+            duration: 1.2,
+            y: 50,
+            opacity: 0,
+            ease: "power3.out"
+        });
+
+        gsap.from(".perfume-card", {
+            duration: 1.5,
+            scale: 0.8,
+            opacity: 0,
+            delay: 0.2,
+            ease: "power3.out"
+        });
+
+        gsap.from(".note-card", {
+            scrollTrigger: ".notes-section",
+            duration: 0.8,
+            y: 40,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+
+        // Анимация световых частиц на бекграунде Canvas
+        const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
+        let particles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        const particles = [];
-        for (let i = 0; i < 40; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                color: Math.random() > 0.5 ? '#f59e0b' : '#d97706',
-                alpha: Math.random() * 0.5 + 0.1,
-                speedY: -Math.random() * 0.6 - 0.2
-            });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = `rgba(229, 169, 60, ${Math.random() * 0.5})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Particle());
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
-                p.y += p.speedY;
-                if (p.y < 0) p.y = canvas.height;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.alpha;
-                ctx.fill();
+                p.update();
+                p.draw();
             });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
-
-        // Header Scroll Blur Effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // 3D Tilt Card Interaction
-        const card = document.getElementById('tiltCard');
-        const visualArea = document.querySelector('.hero-visual');
-
-        visualArea.addEventListener('mousemove', (e) => {
-            const rect = visualArea.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            const rotateX = -y / 15;
-            const rotateY = x / 15;
-
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        visualArea.addEventListener('mouseleave', () => {
-            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-        });
-
-        // GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from('.hero-content > *', {
-            opacity: 0,
-            y: 40,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power3.out'
-        });
-
-        gsap.from('#tiltCard', {
-            opacity: 0,
-            scale: 0.8,
-            duration: 1.2,
-            delay: 0.3,
-            ease: 'back.out(1.7)'
-        });
-
-        gsap.from('.note-card', {
-            scrollTrigger: {
-                trigger: '#pyramid',
-                start: 'top 80%'
-            },
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'power2.out'
-        });
-
-        gsap.from('.review-card', {
-            scrollTrigger: {
-                trigger: '#reviews',
-                start: 'top 80%'
-            },
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'power2.out'
-        });
     </script>
 </body>
 </html>
