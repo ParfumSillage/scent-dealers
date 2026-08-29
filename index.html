@@ -37,7 +37,7 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
-            padding-bottom: 70px; /* Простір під sticky кнопку на мобільних */
+            padding-bottom: 70px;
         }
 
         #snowCanvas {
@@ -124,7 +124,7 @@
             color: var(--text-muted); font-size: 15px; max-width: 600px; margin: 0 auto 30px;
         }
 
-        /* Features Section (Переваги) */
+        /* Features Section */
         .features-section {
             padding: 40px 6% 60px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
         }
@@ -209,7 +209,7 @@
 
         .add-cart-btn:hover { background: var(--accent-silver); }
 
-        /* Atomizer Showcase Section */
+        /* Showcase Atomizers */
         .atomizer-section {
             padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
         }
@@ -292,7 +292,7 @@
         .review-rating { color: #fff; margin-bottom: 10px; }
         .review-text { color: var(--text-muted); font-size: 13px; }
 
-        /* Sticky Mobile Buy Button */
+        /* Mobile Sticky Bar */
         .mobile-sticky-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
@@ -372,7 +372,7 @@
             <button class="close-modal" onclick="closeModal()">✕</button>
             <h3 style="font-family: 'Cinzel', serif; margin-bottom: 10px;">Потрібна Допомога?</h3>
             <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Напишіть нашому менеджеру в Telegram, і ми допоможемо обрати об'єм або відповімо на питання!</p>
-            <a href="https://t.me/c/4464199592/11" target="_blank" class="add-cart-btn" style="text-decoration: none; display: inline-block; width: 100%;">Написати в Telegram</a>
+            <a href="https://t.me/parfumsillage" target="_blank" class="add-cart-btn" style="text-decoration: none; display: inline-block; width: 100%;">Написати в Telegram</a>
         </div>
     </div>
 
@@ -429,7 +429,7 @@
     </section>
 
     <section class="catalog-section" id="catalog">
-        <div class="product-card" id="armaniCard" data-current-link="https://t.me/c/4464199592/11">
+        <div class="product-card" id="armaniCard" data-current-link="https://t.me/parfumsillage">
             <div class="product-image-box">
                 <img src="armani.jpg" alt="Armani Stronger With You Intensely">
             </div>
@@ -440,9 +440,9 @@
                 <p class="product-desc">Густий, солодкувато-пряний аромат з акордами зацукрованого каштану, кориці та карамелі. Створений для зимового морозу.</p>
 
                 <div class="volume-selector">
-                    <button class="vol-btn active" data-price="230" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">3 мл</button>
-                    <button class="vol-btn" data-price="380" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">5 мл</button>
-                    <button class="vol-btn" data-price="730" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">10 мл</button>
+                    <button class="vol-btn active" data-price="230" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">3 мл</button>
+                    <button class="vol-btn" data-price="380" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">5 мл</button>
+                    <button class="vol-btn" data-price="730" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">10 мл</button>
                 </div>
 
                 <div class="product-bottom">
@@ -547,7 +547,7 @@
             <div class="footer-col">
                 <h5>Замовлення</h5>
                 <ul>
-                    <li><a href="https://t.me/c/4464199592/11" target="_blank">Telegram Канал</a></li>
+                    <li><a href="https://t.me/parfumsillage" target="_blank">Telegram Канал</a></li>
                     <li><a href="#" onclick="openModal()">Консультація</a></li>
                 </ul>
             </div>
@@ -621,7 +621,7 @@
         // Buy Action
         function buyCurrentVolume() {
             const card = document.getElementById('armaniCard');
-            const link = card.getAttribute('data-current-link');
+            const link = card.getAttribute('data-current-link') || "https://t.me/parfumsillage";
             count++;
             document.getElementById('cartCount').innerText = count;
 
