@@ -3,552 +3,748 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оригінальні парфуми на розпив | SCENT DEALERS Україна</title>
-    
-    <!-- SEO Мета-теги для Google -->
-    <meta name="description" content="Купити оригінальні чоловічі та жіночі парфуми на розпив в Україні. Armani Stronger With You Intensely. 100% оригінальна парфумерія від 3 мл. Доставка по Україні.">
-    <meta name="keywords" content="купити парфуми на розпив, розпив парфумів Україна, розпив духів, оригінальні парфуми розпив, Armani Stronger With You Intensely розпив, SCENT DEALERS">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph (Відображення в соцмережах) -->
-    <meta property="og:title" content="SCENT DEALERS | Елітна парфумерія на розпив">
-    <meta property="og:description" content="Оригінальні парфуми Armani Stronger With You Intensely на розпив від 3 мл.">
-    <meta property="og:type" content="website">
+    <title>LUXE SCENT | Armani Stronger With You Intensely</title>
 
-    <!-- Подключение шрифтов Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-
-    <!-- Библиотеки анимаций GSAP и VanillaTilt -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
         :root {
-            --bg-color: #0d0a08;
-            --card-bg: rgba(25, 20, 15, 0.65);
-            --accent-gold: #e5a93c;
-            --accent-amber: #d96818;
-            --text-light: #f8f5f0;
-            --text-muted: #a69d95;
-            --border-glow: rgba(229, 169, 60, 0.3);
+            --bg: #030304;
+            --surface: #0a0a0c;
+            --card-bg: rgba(18, 18, 22, 0.65);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #ff6b00;
+            --accent-glow: rgba(255, 107, 0, 0.35);
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Частицы заднего фона */
-        #particles-canvas {
+        /* Custom Neon Cursor */
+        .cursor-dot, .cursor-glow {
+            pointer-events: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+            border-radius: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .cursor-glow {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 107, 0, 0.5);
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            transition: transform 0.15s ease-out;
         }
 
-        /* Шапка */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background: rgba(13, 10, 8, 0.9);
-            backdrop-filter: blur(15px);
+        /* Background Glows */
+        .glow-bg-1 {
             position: fixed;
-            width: 100%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+        }
+
+        .glow-bg-2 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(140, 0, 255, 0.15) 0%, transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(100px);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 3, 4, 0.75);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 700;
+        .brand-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
             letter-spacing: 2px;
-            color: var(--text-light);
-            text-transform: uppercase;
-        }
-
-        .logo span {
-            color: var(--accent-gold);
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
-            color: #000;
-            padding: 8px 18px;
-            border-radius: 30px;
+            color: #fff;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(229, 169, 60, 0.4);
-        }
-
-        /* Главный экран (Hero) */
-        .hero {
-            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 110px 8% 50px;
-            gap: 40px;
-        }
-
-        .hero-content {
-            max-width: 550px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(229, 169, 60, 0.15);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
+            gap: 12px;
             text-transform: uppercase;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            line-height: 1.15;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #ffffff 0%, #d4c5b3 100%);
+        .brand-logo .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        nav.nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        nav.nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        nav.nav-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-btn:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: #000;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 220px 8% 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(40px, 4.5vw, 68px);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #fff 40%, var(--text-muted) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        p.subtitle {
-            font-size: 16px;
+        .hero-content p {
             color: var(--text-muted);
-            margin-bottom: 30px;
+            font-size: 17px;
+            max-width: 520px;
+            margin-bottom: 40px;
         }
 
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-
-        .spec-item {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .spec-item .title {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .spec-item .value {
-            font-size: 18px;
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent) 0%, #d45500 100%);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-size: 15px;
             font-weight: 700;
-            color: var(--accent-gold);
+            text-decoration: none;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transition: 0.4s ease;
         }
 
-        /* 3D Карточка с флаконом */
-        .hero-image-container {
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 0, 0.5);
+        }
+
+        .hero-image-wrapper {
             position: relative;
-            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .perfume-card {
+        .hero-image-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             height: 520px;
-            background: radial-gradient(circle at center, rgba(217, 104, 24, 0.2) 0%, rgba(13, 10, 8, 0.8) 70%);
-            border: 1px solid var(--border-glow);
-            border-radius: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 20px;
+            backdrop-filter: blur(20px);
             position: relative;
-            transform-style: preserve-3d;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 104, 24, 0.2);
             overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        .perfume-img {
+        .hero-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: translateZ(50px);
-            transition: transform 0.3s ease;
+            border-radius: 24px;
+            filter: brightness(0.9) contrast(1.1);
+            transition: 0.5s ease;
         }
 
-        /* Преимущества розлива */
-        .notes-section {
-            padding: 80px 8%;
+        /* Catalog Section */
+        .catalog-section {
+            padding: 120px 8%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
             text-align: center;
+            max-width: 650px;
+            margin: 0 auto 70px;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
-            margin-bottom: 40px;
-            color: var(--text-light);
+        .section-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
         }
 
-        .notes-grid {
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 28px;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .product-card:hover {
+            border-color: rgba(255, 107, 0, 0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255, 107, 0, 0.15);
+        }
+
+        .badge-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-status.in-stock {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .badge-status.no-stock {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .product-image-box {
+            width: 100%;
+            height: 260px;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .product-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image-box img {
+            transform: scale(1.08);
+        }
+
+        .product-brand {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .product-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.3;
+        }
+
+        .volume-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: rgba(0,0,0,0.4);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .vol-btn {
+            flex: 1;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vol-btn.active {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Syne', sans-serif;
+            color: #fff;
+        }
+
+        .add-cart-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-cart-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 8%;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
 
-        .note-card {
+        .feature-item {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 35px 20px;
-            border-radius: 20px;
-            transition: all 0.4s ease;
+            border: 1px solid var(--border);
+            padding: 35px;
+            border-radius: 24px;
+            transition: 0.3s;
         }
 
-        .note-icon {
-            font-size: 36px;
-            margin-bottom: 15px;
-            display: block;
+        .feature-item:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-5px);
         }
 
-        .note-card h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--accent-gold);
-        }
-
-        .note-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Оформить заказ */
-        .order-section {
-            padding: 60px 8% 80px;
-            background: linear-gradient(180deg, transparent 0%, rgba(217, 104, 24, 0.1) 100%);
-            text-align: center;
-        }
-
-        .price-box {
-            margin: 25px 0;
-        }
-
-        .price-box p {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .new-price {
+        .feature-icon {
             font-size: 32px;
-            font-weight: 900;
-            color: var(--accent-gold);
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
-            color: #000;
-            padding: 16px 35px;
-            border-radius: 40px;
-            font-size: 16px;
+        .feature-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
             font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 25px rgba(229, 169, 60, 0.4);
-            width: 100%;
-            max-width: 320px;
         }
 
-        /* Футер */
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Footer */
         footer {
-            padding: 30px 8%;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 80px 8% 40px;
+            background: #020203;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-bottom {
             text-align: center;
             color: var(--text-muted);
             font-size: 13px;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            margin-top: 50px;
         }
 
-        /* АДАПТИВНІСТЬ ДЛЯ ТЕЛЕФОНІВ (Мобільна версія) */
-        @media (max-width: 900px) {
-            header {
-                padding: 12px 5%;
-            }
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #000;
+            padding: 16px 28px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transform: translateY(150px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+        }
 
-            .logo {
-                font-size: 18px;
-            }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
-            .hero {
-                flex-direction: column;
-                padding: 90px 5% 40px;
-                text-align: center;
-                gap: 25px;
-            }
-
-            .hero-content {
-                max-width: 100%;
-            }
-
-            h1 {
-                font-size: 32px;
-                line-height: 1.2;
-            }
-
-            p.subtitle {
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-
-            .specs-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                margin-bottom: 25px;
-                text-align: left;
-            }
-
-            .spec-item {
-                padding: 12px;
-            }
-
-            .spec-item .value {
-                font-size: 15px;
-            }
-
-            /* Ефект плавного скролу для картинки на телефоні */
-            .hero-image-container {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .perfume-card {
-                max-width: 100%;
-                height: 380px;
-                border-radius: 18px;
-            }
-
-            .notes-section {
-                padding: 50px 5%;
-            }
-
-            .section-title {
-                font-size: 28px;
-                margin-bottom: 30px;
-            }
-
-            .order-section {
-                padding: 40px 5% 60px;
-            }
-
-            .cta-btn {
-                max-width: 100%;
-            }
+        @media (max-width: 992px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 160px; }
+            .hero-content p { margin: 0 auto 30px; }
+            nav.nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Канвас анимации частиц -->
-    <canvas id="particles-canvas"></canvas>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Шапка сайта -->
+    <!-- Background Lights -->
+    <div class="glow-bg-1"></div>
+    <div class="glow-bg-2"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Переходимо в Telegram... 🚀</div>
+
+    <!-- Header -->
     <header>
-        <div class="logo">SCENT <span>DEALERS</span></div>
-        <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="nav-btn">Замовити</a>
+        <a href="#" class="brand-logo"><div class="dot"></div> LUXE SCENT</a>
+        <nav class="nav-links">
+            <a href="#catalog">Каталог</a>
+            <a href="#features">Переваги</a>
+            <a href="#contacts">Контакти</a>
+        </nav>
+        <div class="header-actions">
+            <button class="cart-btn">
+                <span>🛒 Кошик</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
     </header>
 
-    <!-- Главный блок -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <span class="badge">🔥 Оригінальний розпив в Україні</span>
-            <h1>Armani Stronger With You Intensely</h1>
-            <p class="subtitle">Спробуй легендарний східно-деревний аромат із нотами кориці, ванілі та тоффі без переплат за цілий флакон. Зручні атомайзери 3, 5 та 10 мл.</p>
-            
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <div class="title">Якість</div>
-                    <div class="value">100% Оригінал</div>
-                </div>
-                <div class="spec-item">
-                    <div class="title">Об'єми</div>
-                    <div class="value">3, 5, 10 мл</div>
-                </div>
-                <div class="spec-item">
-                    <div class="title">Стійкість</div>
-                    <div class="value">до 48 годин</div>
-                </div>
-                <div class="spec-item">
-                    <div class="title">Доставка</div>
-                    <div class="value">Нова Пошта</div>
-                </div>
-            </div>
-
-            <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="cta-btn">Замовити в Telegram</a>
+            <div class="hero-badge">✨ Преміальний Розпив Парфумів</div>
+            <h1>Stronger With You Intensely</h1>
+            <p>Відчуй розкішний східно-фужерний аромат Giorgio Armani у зручних форматах 3, 5 та 10 мл з гарантією 100% оригінальності.</p>
+            <a href="#catalog" class="hero-btn">Обрати Об'єм ➔</a>
         </div>
-
-        <div class="hero-image-container">
-            <div class="perfume-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-                <img src="./armani.jpg" alt="Armani Stronger With You Intensely" class="perfume-img">
+        <div class="hero-image-wrapper">
+            <div class="hero-image-card" id="tiltCard">
+                <img src="./armani.jpg" alt="Armani Stronger With You Intensely" class="hero-img">
             </div>
         </div>
     </section>
 
-    <!-- Переваги розпиву -->
-    <section class="notes-section">
-        <h2 class="section-title">Чому варто купувати розпив?</h2>
-        <div class="notes-grid">
-            <div class="note-card">
-                <span class="note-icon">💎</span>
-                <h3>100% Оригінал</h3>
-                <p>Ми розпиваємо лише оригінальні флакони. Жодних копій чи підробок — тільки якісний продукт.</p>
-            </div>
-            <div class="note-card">
-                <span class="note-icon">💰</span>
-                <h3>Вигода та Економія</h3>
-                <p>Не потрібно купувати великий флакон за тисячі гривень. Візьми необхідний об'єм за вигідною ціною.</p>
-            </div>
-            <div class="note-card">
-                <span class="note-icon">🧪</span>
-                <h3>Зручні атомайзери</h3>
-                <p>Кожне замовлення відправляється у якісному скляному атомайзері з металевим розпилювачем.</p>
+    <!-- Catalog Section -->
+    <section class="catalog-section" id="catalog">
+        <div class="section-header">
+            <h2>Офіційний Розпив</h2>
+            <p>Обирай потрібний флакон. Кожна кнопка об'єму веде на конкретний пост у Telegram!</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product Card: Armani -->
+            <div class="product-card" id="armaniCard" data-current-link="https://t.me/c/4464199592/11">
+                <div class="badge-status in-stock">В наявності</div>
+                <div>
+                    <div class="product-image-box">
+                        <img src="./armani.jpg" alt="Armani Stronger With You Intensely">
+                    </div>
+                    <div class="product-brand">Giorgio Armani</div>
+                    <div class="product-title">Stronger With You Intensely</div>
+
+                    <div class="volume-selector">
+                        <button class="vol-btn active" data-price="250" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">3 мл</button>
+                        <button class="vol-btn" data-price="420" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">5 мл</button>
+                        <button class="vol-btn" data-price="780" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">10 мл</button>
+                    </div>
+                </div>
+
+                <div class="product-bottom">
+                    <div class="product-price" id="armaniPrice">250 ₴</div>
+                    <button class="add-cart-btn" onclick="buyCurrentVolume()">Замовити</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Оформить заказ -->
-    <section class="order-section" id="order">
-        <h2 class="section-title">Хочеш замовити аромат?</h2>
-        <p>Натискай на кнопку нижче, щоб перейти в наш Telegram-канал та зробити замовлення</p>
-        
-        <div class="price-box">
-            <p>Доступні об'єми: 3 мл / 5 мл / 10 мл</p>
-            <span class="new-price">Ціни від 120 грн</span>
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🧪</div>
+                <h4>100% Оригінал</h4>
+                <p>Розпив виключно з оригінальних флаконів із підтвердженням якості.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💎</div>
+                <h4>Скляні Атомайзери</h4>
+                <p>Преміальні флакончики з якісним дрібнодисперсним розпилювачем.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🚀</div>
+                <h4>Швидка Доставка</h4>
+                <p>Відправка Новою Поштою по всій Україні в день замовлення.</p>
+            </div>
         </div>
-
-        <a href="https://t.me/+yjolG1xPx5o3Njgy" target="_blank" class="cta-btn">
-            Замовити в Telegram
-        </a>
     </section>
 
-    <!-- Футер -->
-    <footer>
-        <p>© 2026 SCENT DEALERS Україна. Оригінальна парфумерія на розпив.</p>
+    <!-- Footer -->
+    <footer id="contacts">
+        <div class="footer-bottom">
+            <p>© 2026 LUXE SCENT. Усі права захищені.</p>
+        </div>
     </footer>
 
-    <!-- Скрипты анимации -->
+    <!-- Scripts for Animations -->
     <script>
-        // Инициализация 3D-наклона (на телефоне автоматически адаптируется)
-        if (window.innerWidth > 900) {
-            VanillaTilt.init(document.querySelector(".perfume-card"));
-        }
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorGlow = document.getElementById('cursorGlow');
 
-        // Анимация карточки при скролле (параллакс эффект вверх-вниз)
-        gsap.registerPlugin(ScrollTrigger);
+        window.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            cursorDot.style.left = `${x}px`;
+            cursorDot.style.top = `${y}px`;
 
-        gsap.to(".perfume-card", {
-            y: -30,
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
+            cursorGlow.style.left = `${x}px`;
+            cursorGlow.style.top = `${y}px`;
         });
 
-        gsap.from(".hero-content", {
-            duration: 1.2,
-            y: 30,
+        // 3D Card Tilt Effect on Hover
+        const tiltCard = document.getElementById('tiltCard');
+        tiltCard.addEventListener('mousemove', (e) => {
+            const rect = tiltCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+
+            tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        tiltCard.addEventListener('mouseleave', () => {
+            tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+
+        // Volume Selector Logic
+        let count = 0;
+        function selectVolume(btn) {
+            const card = btn.closest('.product-card');
+            
+            card.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const price = btn.getAttribute('data-price');
+            document.getElementById('armaniPrice').innerText = price + ' ₴';
+
+            const link = btn.getAttribute('data-link');
+            card.setAttribute('data-current-link', link);
+        }
+
+        // Buy Action & Toast Logic
+        function buyCurrentVolume() {
+            const card = document.getElementById('armaniCard');
+            const link = card.getAttribute('data-current-link');
+            
+            count++;
+            document.getElementById('cartCount').innerText = count;
+
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                window.open(link, '_blank');
+            }, 800);
+        }
+
+        // GSAP Animations on Load
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".hero-content *", {
+            duration: 1,
+            y: 50,
             opacity: 0,
+            stagger: 0.15,
             ease: "power3.out"
         });
 
-        gsap.from(".note-card", {
-            scrollTrigger: ".notes-section",
+        gsap.from(".hero-image-card", {
+            duration: 1.2,
+            scale: 0.8,
+            opacity: 0,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        gsap.from(".product-card", {
+            scrollTrigger: "#catalog",
             duration: 0.8,
-            y: 30,
+            y: 60,
             opacity: 0,
             stagger: 0.2,
             ease: "power2.out"
         });
-
-        // Анимация частиц фона
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
-                this.color = `rgba(229, 169, 60, ${Math.random() * 0.4})`;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 40; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
     </script>
 </body>
 </html>
