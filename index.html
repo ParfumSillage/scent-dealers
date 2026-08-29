@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCENT WINTER | Armani Stronger With You Intensely</title>
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,15 +37,13 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            padding-bottom: 70px; /* Простір під sticky кнопку на мобільних */
         }
 
-        /* Canvas зі снігом */
         #snowCanvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 2;
         }
@@ -51,9 +51,7 @@
         /* Header */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 0; left: 0; width: 100%;
             padding: 18px 6%;
             display: flex;
             justify-content: space-between;
@@ -66,460 +64,300 @@
 
         .brand-logo {
             font-family: 'Cinzel', serif;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 18px; font-weight: 700;
+            letter-spacing: 3px; color: #fff; text-decoration: none;
         }
 
         nav.nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
+            display: flex; gap: 25px; list-style: none;
         }
 
         nav.nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
+            color: var(--text-muted); text-decoration: none;
+            font-size: 13px; font-weight: 600; transition: 0.3s;
         }
 
-        nav.nav-links a:hover {
-            color: #fff;
-        }
+        nav.nav-links a:hover { color: #fff; }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-actions { display: flex; align-items: center; gap: 12px; }
 
         .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+            background: transparent; border: 1px solid var(--border);
+            color: #fff; padding: 8px 16px; border-radius: 20px;
+            font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
 
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.1); }
 
         .cart-btn {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
+            background: #fff; color: #000; border: none;
+            padding: 8px 18px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
         }
 
-        .cart-btn:hover {
-            background: var(--accent-silver);
-        }
+        .cart-btn:hover { background: var(--accent-silver); }
 
         .cart-count {
-            background: #000;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 2px 7px;
-            border-radius: 10px;
+            background: #000; color: #fff; font-size: 11px;
+            font-weight: 800; padding: 2px 7px; border-radius: 10px;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
-            padding: 160px 6% 60px;
-            text-align: center;
-            position: relative;
-            z-index: 3;
+            padding: 160px 6% 60px; text-align: center; position: relative; z-index: 3;
         }
 
         .winter-tag {
-            display: inline-block;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.03);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent-silver);
-            margin-bottom: 20px;
+            display: inline-block; border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03); padding: 6px 18px;
+            border-radius: 30px; font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--accent-silver); margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(32px, 5vw, 56px);
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+            font-family: 'Cinzel', serif; font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;
         }
 
         .hero p {
-            color: var(--text-muted);
-            font-size: 15px;
-            max-width: 600px;
-            margin: 0 auto 30px;
+            color: var(--text-muted); font-size: 15px; max-width: 600px; margin: 0 auto 30px;
         }
 
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        /* Features Section (Переваги) */
+        .features-section {
+            padding: 40px 6% 60px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
         }
+
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 25px; border-radius: 20px; text-align: center; transition: 0.3s;
+        }
+
+        .feature-card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-3px); }
+
+        .feature-icon { font-size: 30px; margin-bottom: 12px; }
+
+        .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+
+        .feature-desc { font-size: 12px; color: var(--text-muted); }
 
         /* Catalog Section */
         .catalog-section {
-            padding: 40px 6% 80px;
-            position: relative;
-            z-index: 3;
-            max-width: 1100px;
-            margin: 0 auto;
+            padding: 40px 6% 60px; position: relative; z-index: 3; max-width: 1100px; margin: 0 auto;
         }
 
         .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            padding: 30px;
-            backdrop-filter: blur(25px);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 28px; padding: 30px; backdrop-filter: blur(25px);
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
         }
 
         .product-image-box {
-            width: 100%;
-            height: 420px;
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid var(--border);
+            width: 100%; height: 420px; background: #000; border-radius: 20px;
+            overflow: hidden; position: relative; border: 1px solid var(--border);
         }
 
-        .product-image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
+        .product-image-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .product-info {
-            display: flex;
-            flex-direction: column;
-        }
+        .product-info { display: flex; flex-direction: column; }
 
         .product-brand {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
+            font-size: 11px; color: var(--text-muted); font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;
         }
 
         .product-title {
-            font-family: 'Cinzel', serif;
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #fff;
+            font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700;
+            margin-bottom: 15px; color: #fff;
         }
 
-        .product-desc {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
+        .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
 
         .volume-selector {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 5px;
-            border-radius: 14px;
+            display: flex; gap: 8px; margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 14px;
             border: 1px solid var(--border);
         }
 
         .vol-btn {
-            flex: 1;
-            padding: 10px 0;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            flex: 1; padding: 10px 0; background: transparent; border: none;
+            color: var(--text-muted); border-radius: 10px; font-size: 13px;
+            font-weight: 600; cursor: pointer; transition: all 0.3s ease;
         }
 
-        .vol-btn.active {
-            background: #ffffff;
-            color: #000000;
-            font-weight: 700;
-        }
+        .vol-btn.active { background: #ffffff; color: #000000; font-weight: 700; }
 
         .product-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border); padding-top: 20px;
         }
 
-        .product-price {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-        }
+        .product-price { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: #fff; }
 
         .add-cart-btn {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: #ffffff; color: #000000; border: none;
+            padding: 14px 32px; border-radius: 14px; font-size: 13px;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .add-cart-btn:hover {
-            background: var(--accent-silver);
-        }
+        .add-cart-btn:hover { background: var(--accent-silver); }
 
-        /* Fragrance Pyramid Section */
-        .pyramid-section {
-            padding: 80px 6%;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
+        /* Atomizer Showcase Section */
+        .atomizer-section {
+            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
         }
 
         .section-title {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            margin-bottom: 40px;
+            text-align: center; font-family: 'Cinzel', serif; font-size: 28px; margin-bottom: 40px;
         }
 
-        .pyramid-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        .atomizer-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 24px; padding: 30px; display: grid; grid-template-columns: 1fr 1fr;
+            gap: 30px; align-items: center;
         }
+
+        .atomizer-img {
+            width: 100%; height: 300px; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border); background: #000;
+        }
+
+        .atomizer-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .atomizer-text h4 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+        .atomizer-text p { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
+
+        /* Pyramid Section */
+        .pyramid-section {
+            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
+        }
+
+        .pyramid-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 
         .pyramid-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 25px; border-radius: 20px; text-align: center;
         }
 
         .pyramid-card h4 {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
+            font-size: 14px; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 10px;
         }
 
-        .pyramid-card p {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
+        .pyramid-card p { font-size: 16px; font-weight: 600; color: #fff; }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 6%; max-width: 800px; margin: 0 auto; position: relative; z-index: 3;
         }
 
-        /* Calculator Section */
-        .calc-section {
-            padding: 60px 6%;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            z-index: 3;
-            text-align: center;
+        .faq-item {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; margin-bottom: 12px; overflow: hidden;
         }
 
-        .calc-box {
-            max-width: 600px;
-            margin: 20px auto 0;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 24px;
+        .faq-question {
+            padding: 20px 25px; font-weight: 700; font-size: 15px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; color: #fff;
         }
 
-        .calc-result {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 15px;
-            color: var(--accent-silver);
+        .faq-answer {
+            padding: 0 25px 20px; font-size: 13px; color: var(--text-muted); display: none;
         }
+
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-toggle { transform: rotate(45deg); }
+        .faq-toggle { transition: 0.3s; font-size: 18px; }
 
         /* Reviews Section */
         .reviews-section {
-            padding: 80px 6%;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
+            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
         }
 
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
         .review-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 25px;
-            border-radius: 20px;
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 25px; border-radius: 20px;
         }
 
-        .review-author {
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 5px;
+        .review-author { font-weight: 700; font-size: 14px; margin-bottom: 5px; }
+        .review-rating { color: #fff; margin-bottom: 10px; }
+        .review-text { color: var(--text-muted); font-size: 13px; }
+
+        /* Sticky Mobile Buy Button */
+        .mobile-sticky-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border); padding: 12px 20px;
+            display: none; justify-content: space-between; align-items: center; z-index: 999;
         }
 
-        .review-rating {
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .review-text {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
+        .sticky-price { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: #fff; }
 
         /* Footer */
         footer {
-            padding: 60px 6% 30px;
-            background: #000;
-            border-top: 1px solid var(--border);
-            position: relative;
-            z-index: 3;
+            padding: 60px 6% 30px; background: #000; border-top: 1px solid var(--border);
+            position: relative; z-index: 3;
         }
 
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            max-width: 1100px;
-            margin: 0 auto 40px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px; max-width: 1100px; margin: 0 auto 40px;
         }
 
-        .footer-col h5 {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
+        .footer-col h5 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #fff; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 10px; }
         .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 13px; }
         .footer-col ul li a:hover { color: #fff; }
 
         .footer-bottom {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 12px;
-            border-top: 1px solid var(--border);
-            padding-top: 25px;
+            text-align: center; color: var(--text-muted); font-size: 12px;
+            border-top: 1px solid var(--border); padding-top: 25px;
         }
 
-        /* Modal Popup */
+        /* Modals & Toasts */
         .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: 0.3s; z-index: 9999;
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .modal.active { opacity: 1; pointer-events: all; }
 
         .modal-content {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 24px;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            position: relative;
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 40px; border-radius: 24px; max-width: 450px; width: 90%;
+            text-align: center; position: relative;
         }
 
         .close-modal {
-            position: absolute;
-            top: 15px; right: 20px;
-            background: none; border: none;
-            color: #fff; font-size: 20px; cursor: pointer;
+            position: absolute; top: 15px; right: 20px; background: none;
+            border: none; color: #fff; font-size: 20px; cursor: pointer;
         }
 
-        /* Toast Notification */
         .toast {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            background: #fff; color: #000;
-            padding: 14px 24px; border-radius: 14px;
-            font-weight: 700; font-size: 13px;
-            transform: translateY(150px); opacity: 0;
-            transition: all 0.4s ease; z-index: 9999;
+            position: fixed; bottom: 80px; right: 30px; background: #fff; color: #000;
+            padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 13px;
+            transform: translateY(150px); opacity: 0; transition: all 0.4s ease; z-index: 9999;
         }
 
-        .toast.show {
-            transform: translateY(0); opacity: 1;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
 
         @media (max-width: 850px) {
-            .product-card { grid-template-columns: 1fr; }
+            .product-card, .atomizer-box { grid-template-columns: 1fr; }
             .product-image-box { height: 300px; }
             nav.nav-links { display: none; }
+            .mobile-sticky-bar { display: flex; }
         }
     </style>
 </head>
@@ -542,8 +380,9 @@
         <a href="#" class="brand-logo">❄ SCENT WINTER</a>
         <nav class="nav-links">
             <a href="#catalog">Парфум</a>
-            <a href="#pyramid">Піраміда Ноту</a>
-            <a href="#calc">Калькулятор</a>
+            <a href="#features">Переваги</a>
+            <a href="#atomizers">Флакони</a>
+            <a href="#faq">Питання</a>
             <a href="#reviews">Відгуки</a>
         </nav>
         <div class="header-actions">
@@ -559,14 +398,38 @@
         <div class="winter-tag">Winter Edition 2026</div>
         <h1>Stronger With You Intensely</h1>
         <p>Ідеальний зігріваючий шлейф рожевого перцю, каштану та ванілі для холодної пори року.</p>
-        <div class="hero-actions">
+        <div style="display: flex; justify-content: center; gap: 15px;">
             <a href="#catalog" class="add-cart-btn" style="text-decoration: none;">Переглянути Об'єми</a>
+        </div>
+    </section>
+
+    <section class="features-section" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <div class="feature-title">Швидка Доставка</div>
+                <div class="feature-desc">Відправка в день замовлення Новою Поштою по всій Україні.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💯</div>
+                <div class="feature-title">100% Оригінал</div>
+                <div class="feature-desc">Лише фірмові флакони від офіційних дистриб'юторів.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <div class="feature-title">Подарунок у Замовленні</div>
+                <div class="feature-desc">Комплектуємо кожну посылочку приємним бонусом.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Безпечна Оплата</div>
+                <div class="feature-desc">Оплата при отриманні на пошті або карткою.</div>
+            </div>
         </div>
     </section>
 
     <section class="catalog-section" id="catalog">
         <div class="product-card" id="armaniCard" data-current-link="https://t.me/c/4464199592/11">
-            
             <div class="product-image-box">
                 <img src="armani.jpg" alt="Armani Stronger With You Intensely">
             </div>
@@ -577,9 +440,9 @@
                 <p class="product-desc">Густий, солодкувато-пряний аромат з акордами зацукрованого каштану, кориці та карамелі. Створений для зимового морозу.</p>
 
                 <div class="volume-selector">
-                    <button class="vol-btn active" data-price="230" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this, '3 мл = ~45 розпилень (на 2-3 тижні)')">3 мл</button>
-                    <button class="vol-btn" data-price="380" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this, '5 мл = ~75 розпилень (на місяць)')">5 мл</button>
-                    <button class="vol-btn" data-price="730" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this, '10 мл = ~150 розпилень (на 2-3 місяці)')">10 мл</button>
+                    <button class="vol-btn active" data-price="230" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">3 мл</button>
+                    <button class="vol-btn" data-price="380" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">5 мл</button>
+                    <button class="vol-btn" data-price="730" data-link="https://t.me/c/4464199592/11" onclick="selectVolume(this)">10 мл</button>
                 </div>
 
                 <div class="product-bottom">
@@ -587,11 +450,24 @@
                     <button class="add-cart-btn" onclick="buyCurrentVolume()">Замовити</button>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <section class="pyramid-section" id="pyramid">
+    <section class="atomizer-section" id="atomizers">
+        <h3 class="section-title">Як Виглядає Ваше Замовлення</h3>
+        <div class="atomizer-box">
+            <div class="atomizer-img">
+                <img src="flaconchik.jpg" alt="Наш атомайзер" onerror="this.src='armani.jpg';">
+            </div>
+            <div class="atomizer-text">
+                <h4>Преміальні Скляні Атомайзери</h4>
+                <p>Ми використовуємо лише якісні італійські скляні флакони з надійними металевими розпилювачами (спреями). Вони не протікають і зберігають аромат незмінним.</p>
+                <p style="color: #fff; font-weight: 600;">Доступні об'єми: 3 мл / 5 мл / 10 мл</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pyramid-section">
         <h3 class="section-title">Піраміда Аромату</h3>
         <div class="pyramid-grid">
             <div class="pyramid-card">
@@ -609,12 +485,27 @@
         </div>
     </section>
 
-    <section class="calc-section" id="calc">
-        <h3 class="section-title">Калькулятор Розпиву</h3>
-        <p style="color: var(--text-muted); font-size: 14px;">Обери об'єм у картці вище, щоб побачити розрахунок використання:</p>
-        <div class="calc-box">
-            <div style="font-size: 13px; color: var(--text-muted); text-transform: uppercase;">Ориєнтовний запас:</div>
-            <div class="calc-result" id="calcNote">3 мл = ~45 розпилень (на 2-3 тижні)</div>
+    <section class="faq-section" id="faq">
+        <h3 class="section-title">Поширені Питання</h3>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Що таке розпив парфуму? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Розпив — це відбір оригінального аромату з великого фірмового флакону у менші зручні скляні атомайзери (на 3, 5 або 10 мл). Це дозволяє спробувати дороговартісний парфум за вигідною ціною.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">У які атомайзери ви наливаєте парфум? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Ми використовуємо якісні скляні атомайзери з металевим розпилювачем. Скло не вступає в реакцію з духами, тому аромат залишається стійким та ідентичним початковому.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Як перевірити оригінальність? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Всі аромати закуповуються тільки у перевірених офіційних дистриб'юторів. Ми гарантуємо 100% автентичність кожної краплі та готові надати фото батч-кодів флаконів.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Скільки тримається аромат? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Stronger With You Intensely — один із найстійкіших зимових ароматів. На шкірі він відчувається 8-12 годин, а на одязі та куртках тримається кілька днів.</div>
         </div>
     </section>
 
@@ -649,8 +540,8 @@
                 <h5>Навігація</h5>
                 <ul>
                     <li><a href="#catalog">Каталог</a></li>
-                    <li><a href="#pyramid">Ноти</a></li>
-                    <li><a href="#reviews">Відгуки</a></li>
+                    <li><a href="#features">Переваги</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -666,85 +557,76 @@
         </div>
     </footer>
 
+    <div class="mobile-sticky-bar">
+        <div>
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Ціна:</div>
+            <div class="sticky-price" id="stickyPrice">230 ₴</div>
+        </div>
+        <button class="add-cart-btn" onclick="buyCurrentVolume()">Замовити</button>
+    </div>
+
     <script>
-        // Сніг Canvas
+        // Snow Effect
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
         const snowflakes = Array.from({ length: 60 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 0.5,
-            density: Math.random() * 0.5 + 0.2,
-            opacity: Math.random() * 0.5 + 0.2
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 0.5, density: Math.random() * 0.5 + 0.2, opacity: Math.random() * 0.5 + 0.2
         }));
 
         function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-
             snowflakes.forEach(flake => {
                 ctx.beginPath();
                 ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
                 ctx.globalAlpha = flake.opacity;
                 ctx.fill();
-
                 flake.y += flake.density;
                 flake.x += Math.sin(flake.y / 30) * 0.3;
-
-                if (flake.y > canvas.height) {
-                    flake.y = -5;
-                    flake.x = Math.random() * canvas.width;
-                }
+                if (flake.y > canvas.height) { flake.y = -5; flake.x = Math.random() * canvas.width; }
             });
-
             requestAnimationFrame(drawSnow);
         }
         drawSnow();
 
-        // Modal Logic
-        function openModal() {
-            document.getElementById('consultModal').classList.add('active');
-        }
-        function closeModal() {
-            document.getElementById('consultModal').classList.remove('active');
+        // Modal
+        function openModal() { document.getElementById('consultModal').classList.add('active'); }
+        function closeModal() { document.getElementById('consultModal').classList.remove('active'); }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            element.classList.toggle('active');
         }
 
         // Volume Selector
         let count = 0;
-        function selectVolume(btn, noteText) {
+        function selectVolume(btn) {
             const card = btn.closest('.product-card');
-            
             card.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const price = btn.getAttribute('data-price');
             document.getElementById('armaniPrice').innerText = price + ' ₴';
+            document.getElementById('stickyPrice').innerText = price + ' ₴';
 
             const link = btn.getAttribute('data-link');
             card.setAttribute('data-current-link', link);
-
-            document.getElementById('calcNote').innerText = noteText;
         }
 
         // Buy Action
         function buyCurrentVolume() {
             const card = document.getElementById('armaniCard');
             const link = card.getAttribute('data-current-link');
-            
             count++;
             document.getElementById('cartCount').innerText = count;
 
             const toast = document.getElementById('toast');
             toast.classList.add('show');
-
             setTimeout(() => {
                 toast.classList.remove('show');
                 window.open(link, '_blank');
@@ -752,12 +634,7 @@
         }
 
         // GSAP
-        gsap.from(".product-card", {
-            duration: 1,
-            y: 40,
-            opacity: 0,
-            ease: "power3.out"
-        });
+        gsap.from(".hero h1", { duration: 1, y: 30, opacity: 0, ease: "power3.out" });
     </script>
 </body>
 </html>
