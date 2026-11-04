@@ -1,640 +1,265 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCENT WINTER | Armani Stronger With You Intensely</title>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <style>
-        :root {
-            --bg: #050505;
-            --surface: #0e0e11;
-            --card-bg: rgba(20, 20, 25, 0.8);
-            --border: rgba(255, 255, 255, 0.12);
-            --accent-silver: #d1d1d6;
-            --text-main: #f5f5f7;
-            --text-muted: #8e8e93;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-            padding-bottom: 70px;
-        }
-
-        #snowCanvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            padding: 18px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 5, 0.88);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-        }
-
-        .brand-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 18px; font-weight: 700;
-            letter-spacing: 3px; color: #fff; text-decoration: none;
-        }
-
-        nav.nav-links {
-            display: flex; gap: 25px; list-style: none;
-        }
-
-        nav.nav-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-size: 13px; font-weight: 600; transition: 0.3s;
-        }
-
-        nav.nav-links a:hover { color: #fff; }
-
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-
-        .btn-outline {
-            background: transparent; border: 1px solid var(--border);
-            color: #fff; padding: 8px 16px; border-radius: 20px;
-            font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-
-        .btn-outline:hover { background: rgba(255, 255, 255, 0.1); }
-
-        .cart-btn {
-            background: #fff; color: #000; border: none;
-            padding: 8px 18px; border-radius: 20px;
-            font-size: 12px; font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
-
-        .cart-btn:hover { background: var(--accent-silver); }
-
-        .cart-count {
-            background: #000; color: #fff; font-size: 11px;
-            font-weight: 800; padding: 2px 7px; border-radius: 10px;
-        }
-
-        /* Hero */
-        .hero {
-            padding: 160px 6% 60px; text-align: center; position: relative; z-index: 3;
-        }
-
-        .winter-tag {
-            display: inline-block; border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.03); padding: 6px 18px;
-            border-radius: 30px; font-size: 11px; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--accent-silver); margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: 'Cinzel', serif; font-size: clamp(32px, 5vw, 56px);
-            font-weight: 800; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;
-        }
-
-        .hero p {
-            color: var(--text-muted); font-size: 15px; max-width: 600px; margin: 0 auto 30px;
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 40px 6% 60px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
-        }
-
-        .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
-        }
-
-        .feature-card {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 25px; border-radius: 20px; text-align: center; transition: 0.3s;
-        }
-
-        .feature-card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-3px); }
-
-        .feature-icon { font-size: 30px; margin-bottom: 12px; }
-
-        .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; }
-
-        .feature-desc { font-size: 12px; color: var(--text-muted); }
-
-        /* Catalog Section */
-        .catalog-section {
-            padding: 40px 6% 60px; position: relative; z-index: 3; max-width: 1100px; margin: 0 auto;
-        }
-
-        .product-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 28px; padding: 30px; backdrop-filter: blur(25px);
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-        }
-
-        .product-image-box {
-            width: 100%; height: 420px; background: #000; border-radius: 20px;
-            overflow: hidden; position: relative; border: 1px solid var(--border);
-        }
-
-        .product-image-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        .product-info { display: flex; flex-direction: column; }
-
-        .product-brand {
-            font-size: 11px; color: var(--text-muted); font-weight: 700;
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;
-        }
-
-        .product-title {
-            font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700;
-            margin-bottom: 15px; color: #fff;
-        }
-
-        .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
-
-        .volume-selector {
-            display: flex; gap: 8px; margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 14px;
-            border: 1px solid var(--border);
-        }
-
-        .vol-btn {
-            flex: 1; padding: 10px 0; background: transparent; border: none;
-            color: var(--text-muted); border-radius: 10px; font-size: 13px;
-            font-weight: 600; cursor: pointer; transition: all 0.3s ease;
-        }
-
-        .vol-btn.active { background: #ffffff; color: #000000; font-weight: 700; }
-
-        .product-bottom {
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--border); padding-top: 20px;
-        }
-
-        .product-price { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: #fff; }
-
-        .add-cart-btn {
-            background: #ffffff; color: #000000; border: none;
-            padding: 14px 32px; border-radius: 14px; font-size: 13px;
-            font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        .add-cart-btn:hover { background: var(--accent-silver); }
-
-        /* Showcase Atomizers */
-        .atomizer-section {
-            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
-        }
-
-        .section-title {
-            text-align: center; font-family: 'Cinzel', serif; font-size: 28px; margin-bottom: 40px;
-        }
-
-        .atomizer-box {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 24px; padding: 30px; display: grid; grid-template-columns: 1fr 1fr;
-            gap: 30px; align-items: center;
-        }
-
-        .atomizer-img {
-            width: 100%; height: 300px; border-radius: 16px; overflow: hidden;
-            border: 1px solid var(--border); background: #000;
-        }
-
-        .atomizer-img img { width: 100%; height: 100%; object-fit: cover; }
-
-        .atomizer-text h4 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #fff; }
-        .atomizer-text p { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
-
-        /* Pyramid Section */
-        .pyramid-section {
-            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
-        }
-
-        .pyramid-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-        .pyramid-card {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 25px; border-radius: 20px; text-align: center;
-        }
-
-        .pyramid-card h4 {
-            font-size: 14px; color: var(--text-muted); text-transform: uppercase;
-            letter-spacing: 1.5px; margin-bottom: 10px;
-        }
-
-        .pyramid-card p { font-size: 16px; font-weight: 600; color: #fff; }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 60px 6%; max-width: 800px; margin: 0 auto; position: relative; z-index: 3;
-        }
-
-        .faq-item {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 16px; margin-bottom: 12px; overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 20px 25px; font-weight: 700; font-size: 15px; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center; color: #fff;
-        }
-
-        .faq-answer {
-            padding: 0 25px 20px; font-size: 13px; color: var(--text-muted); display: none;
-        }
-
-        .faq-item.active .faq-answer { display: block; }
-        .faq-item.active .faq-toggle { transform: rotate(45deg); }
-        .faq-toggle { transition: 0.3s; font-size: 18px; }
-
-        /* Reviews Section */
-        .reviews-section {
-            padding: 60px 6%; max-width: 1100px; margin: 0 auto; position: relative; z-index: 3;
-        }
-
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-
-        .review-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 25px; border-radius: 20px;
-        }
-
-        .review-author { font-weight: 700; font-size: 14px; margin-bottom: 5px; }
-        .review-rating { color: #fff; margin-bottom: 10px; }
-        .review-text { color: var(--text-muted); font-size: 13px; }
-
-        /* Mobile Sticky Bar */
-        .mobile-sticky-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
-            border-top: 1px solid var(--border); padding: 12px 20px;
-            display: none; justify-content: space-between; align-items: center; z-index: 999;
-        }
-
-        .sticky-price { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: #fff; }
-
-        /* Footer */
-        footer {
-            padding: 60px 6% 30px; background: #000; border-top: 1px solid var(--border);
-            position: relative; z-index: 3;
-        }
-
-        .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px; max-width: 1100px; margin: 0 auto 40px;
-        }
-
-        .footer-col h5 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #fff; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 13px; }
-        .footer-col ul li a:hover { color: #fff; }
-
-        .footer-bottom {
-            text-align: center; color: var(--text-muted); font-size: 12px;
-            border-top: 1px solid var(--border); padding-top: 25px;
-        }
-
-        /* Modals & Toasts */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.3s; z-index: 9999;
-        }
-
-        .modal.active { opacity: 1; pointer-events: all; }
-
-        .modal-content {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 40px; border-radius: 24px; max-width: 450px; width: 90%;
-            text-align: center; position: relative;
-        }
-
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; background: none;
-            border: none; color: #fff; font-size: 20px; cursor: pointer;
-        }
-
-        .toast {
-            position: fixed; bottom: 80px; right: 30px; background: #fff; color: #000;
-            padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 13px;
-            transform: translateY(150px); opacity: 0; transition: all 0.4s ease; z-index: 9999;
-        }
-
-        .toast.show { transform: translateY(0); opacity: 1; }
-
-        @media (max-width: 850px) {
-            .product-card, .atomizer-box { grid-template-columns: 1fr; }
-            .product-image-box { height: 300px; }
-            nav.nav-links { display: none; }
-            .mobile-sticky-bar { display: flex; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Распив оригинальных парфюмов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--line:rgba(255,255,255,.08);--text:#ededed;--muted:#8d8d8d;--crim:#8B0000;--blood:#CC0000;--font:'Inter','Helvetica Neue',Arial,sans-serif;--mx:50%;--my:50%}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blood);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+::selection{background:var(--crim);color:#fff}
+
+/* atmosphere */
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.spot{position:fixed;left:0;top:0;width:720px;height:720px;margin:-360px 0 0 -360px;z-index:1;pointer-events:none;background:radial-gradient(circle,rgba(204,0,0,.22) 0%,rgba(139,0,0,.1) 38%,transparent 68%);will-change:transform}
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;z-index:100;pointer-events:none;opacity:0;transition:opacity .3s}
+.cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--blood);border-radius:50%}
+.cur-ring{width:38px;height:38px;margin:-19px 0 0 -19px;border:1px solid rgba(204,0,0,.7);border-radius:50%;transition:opacity .3s,width .25s,height .25s,margin .25s,background .25s}
+.cur-ring.big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(204,0,0,.12)}
+@media(hover:hover) and (pointer:fine){body.cc,body.cc a,body.cc button,body.cc label{cursor:none}body.cc .cur-dot,body.cc .cur-ring{opacity:1}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(48px);filter:blur(14px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1),filter 1s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none;filter:none}
+
+/* hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;padding:28px 0 48px;border-bottom:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.logo{font-weight:800}
+.status{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--blood);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(204,0,0,.7)}70%{box-shadow:0 0 0 12px rgba(204,0,0,0)}100%{box-shadow:0 0 0 0 rgba(204,0,0,0)}}
+.hero-body{margin-top:auto;padding-top:80px}
+h1{font-weight:900;font-size:clamp(54px,15.5vw,236px);line-height:.84;letter-spacing:-.06em;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);
+  background:radial-gradient(circle 340px at var(--hx,50%) var(--hy,50%),var(--blood) 0%,var(--crim) 40%,transparent 70%),linear-gradient(#ededed,#ededed);
+  background-size:100% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;
+  background-repeat:no-repeat;transition:-webkit-text-stroke-color .4s}
+h1 span{display:block}
+h1 .l2{-webkit-text-stroke-color:rgba(255,255,255,.2)}
+h1:hover{-webkit-text-stroke-color:rgba(255,80,80,.9)}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.hero-foot p{max-width:42ch;color:var(--muted);font-size:17px;font-weight:300}
+.hero-foot p b{color:var(--text);font-weight:500}
+.go{border-radius:999px;display:inline-flex;align-items:center;gap:14px;padding:18px 32px;border:1px solid var(--blood);background:linear-gradient(120deg,var(--crim),var(--blood));color:#fff;text-decoration:none;font-weight:500;letter-spacing:.04em;transition:filter .3s;will-change:transform}
+.go:hover{filter:brightness(1.2)}
+
+/* marquee */
+.mq{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;position:relative;z-index:2;padding:18px 0;font-weight:800;font-size:clamp(18px,3vw,30px);letter-spacing:-.01em;color:rgba(255,255,255,.18)}
+.mq div{display:inline-block;animation:mq 28s linear infinite}
+.mq i{font-style:normal;color:var(--blood);margin:0 28px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* catalog */
+.catalog{padding:120px 0 60px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px}
+.head h2{font-weight:900;font-size:clamp(40px,7vw,96px);letter-spacing:-.045em;line-height:.9}
+.head p{color:var(--muted);max-width:34ch}
+.item{border-radius:0;position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:36px 56px;padding:44px 0;border-top:1px solid var(--line);transition:background .5s}
+.item:last-child{border-bottom:1px solid var(--line)}
+.item::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--blood);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.item:hover::before{width:100%}
+.maker{color:var(--muted);font-size:15px;letter-spacing:.06em}
+.item h3{font-weight:900;font-size:clamp(30px,4.4vw,60px);line-height:1;letter-spacing:-.04em;margin:10px 0 24px;transition:color .3s}
+.item:hover h3{color:#fff;text-shadow:0 0 40px rgba(204,0,0,.55)}
+.notes{display:flex;flex-wrap:wrap;gap:8px}
+.notes span{border-radius:999px;padding:7px 16px;border:1px solid var(--line);font-size:13px;color:#c9c9c9;transition:border-color .3s,color .3s}
+.item:hover .notes span{border-color:rgba(204,0,0,.45)}
+.right{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+fieldset{border:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.vol input{position:absolute;opacity:0;pointer-events:none}
+.vol label{border-radius:18px;display:block;padding:16px 8px;text-align:center;border:1px solid var(--line);background:rgba(255,255,255,.015);cursor:pointer;transition:border-color .3s,background .3s,box-shadow .3s,color .3s;will-change:transform}
+.vol label b{display:block;font-size:20px;font-weight:800}
+.vol label small{color:var(--muted);font-size:13px;transition:color .3s}
+.vol label:hover{border-color:rgba(204,0,0,.5)}
+.vol input:checked+label{border-color:var(--blood);background:linear-gradient(180deg,rgba(204,0,0,.28),rgba(139,0,0,.08));box-shadow:0 0 28px rgba(204,0,0,.35),inset 0 0 18px rgba(204,0,0,.18)}
+.vol input:checked+label small{color:#ffb3b3}
+.vol input:focus-visible+label{outline:2px solid var(--blood);outline-offset:3px}
+.buy{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.price{font-weight:900;font-size:clamp(36px,5vw,56px);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.price small{font-size:17px;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:0}
+.order{border-radius:999px;font:inherit;font-weight:500;letter-spacing:.04em;color:var(--text);background:transparent;border:1px solid rgba(255,255,255,.6);padding:17px 34px;cursor:pointer;transition:background .3s,border-color .3s,color .3s;will-change:transform}
+.order:hover{background:linear-gradient(120deg,var(--crim),var(--blood));border-color:var(--blood);color:#fff}
+footer{padding:56px 0 72px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);position:relative;z-index:2}
+
+/* modal */
+dialog{border-radius:28px;margin:auto;width:min(480px,calc(100% - 28px));color:var(--text);padding:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(139,0,0,.12));backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);overflow:hidden}
+dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
+dialog[open]{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
+dialog[open]::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--blood),transparent);animation:scan .9s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes scan{from{top:0;opacity:1}to{top:100%;opacity:0}}
+dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:22px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid var(--line)}
+.sum div:last-child{border-bottom:1px solid var(--line)}
+.sum span{color:var(--muted)}
+.sum b{text-align:right;font-weight:500}
+.sum .total b{font-size:26px;font-weight:900;color:#ff3b3b}
+pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line);background:rgba(0,0,0,.35);font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#cfcfcf;white-space:pre-wrap}
+.acts{display:grid;gap:10px;margin-top:20px}
+.btn{border-radius:999px;font:inherit;font-weight:500;padding:16px;text-align:center;text-decoration:none;cursor:pointer;border:1px solid var(--blood);background:linear-gradient(120deg,var(--crim),var(--blood));color:#fff;transition:filter .3s}
+.btn:hover{filter:brightness(1.2)}
+.btn.g{background:transparent;border-color:var(--line);color:var(--text)}
+.btn.g:hover{border-color:rgba(255,255,255,.4);filter:none}
+.ok{margin-top:14px;min-height:22px;font-size:14px;color:#ff6a6a;opacity:0;transform:translateY(6px);transition:.35s}
+.ok.show{opacity:1;transform:none}
+
+@media(max-width:860px){.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
+</style>
 </head>
 <body>
+<div class="spot" id="spot"></div><div class="noise"></div>
+<div class="cur-ring" id="ring"></div><div class="cur-dot" id="dot"></div>
 
-    <canvas id="snowCanvas"></canvas>
-
-    <div class="toast" id="toast">Переходимо в Telegram... ❄️</div>
-
-    <div class="modal" id="consultModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">✕</button>
-            <h3 style="font-family: 'Cinzel', serif; margin-bottom: 10px;">Потрібна Допомога?</h3>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Напишіть нашому менеджеру в Telegram, і ми допоможемо обрати об'єм або відповімо на питання!</p>
-            <a href="https://t.me/parfumsillage" target="_blank" class="add-cart-btn" style="text-decoration: none; display: inline-block; width: 100%;">Написати в Telegram</a>
-        </div>
+<header class="hero">
+  <div class="wrap" style="display:flex;flex-direction:column;flex:1">
+    <div class="top rv"><span class="logo">Распив</span><span class="status"><i class="dot"></i>Status: available // 2026 collection</span></div>
+    <div class="hero-body">
+      <h1 id="h1" class="rv" style="--d:.15s"><span>Оригинал</span><span class="l2">по капле</span></h1>
+      <div class="hero-foot rv" style="--d:.35s">
+        <p>Только <b>оригинальный распив от 3 мл</b>. Попробуйте аромат на коже до покупки флакона.</p>
+        <a class="go" href="#catalog" data-mag>Перейти к каталогу</a>
+      </div>
     </div>
+  </div>
+</header>
 
-    <header>
-        <a href="#" class="brand-logo">❄ SCENT WINTER</a>
-        <nav class="nav-links">
-            <a href="#catalog">Парфум</a>
-            <a href="#features">Переваги</a>
-            <a href="#atomizers">Флакони</a>
-            <a href="#faq">Питання</a>
-            <a href="#reviews">Відгуки</a>
-        </nav>
-        <div class="header-actions">
-            <button class="btn-outline" onclick="openModal()">Консультація</button>
-            <button class="cart-btn" onclick="buyCurrentVolume()">
-                <span>Замовити</span>
-                <span class="cart-count" id="cartCount">0</span>
-            </button>
-        </div>
-    </header>
+<div class="mq" aria-hidden="true"><div id="mq"></div></div>
 
-    <section class="hero">
-        <div class="winter-tag">Winter Edition 2026</div>
-        <h1>Stronger With You Intensely</h1>
-        <p>Ідеальний зігріваючий шлейф рожевого перцю, каштану та ванілі для холодної пори року.</p>
-        <div style="display: flex; justify-content: center; gap: 15px;">
-            <a href="#catalog" class="add-cart-btn" style="text-decoration: none;">Переглянути Об'єми</a>
-        </div>
-    </section>
+<main class="wrap catalog" id="catalog">
+  <div class="head">
+    <h2 class="rv">Каталог</h2>
+    <p class="rv" style="--d:.15s">1 мл стоит 70 грн. Доступные объёмы: 3, 5 и 10 мл.</p>
+  </div>
+  <div id="list"></div>
+</main>
 
-    <section class="features-section" id="features">
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🚚</div>
-                <div class="feature-title">Швидка Доставка</div>
-                <div class="feature-desc">Відправка в день замовлення Новою Поштою по всій Україні.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💯</div>
-                <div class="feature-title">100% Оригінал</div>
-                <div class="feature-desc">Лише фірмові флакони від офіційних дистриб'юторів.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎁</div>
-                <div class="feature-title">Подарунок у Замовленні</div>
-                <div class="feature-desc">Комплектуємо кожну посылочку приємним бонусом.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <div class="feature-title">Безпечна Оплата</div>
-                <div class="feature-desc">Оплата при отриманні на пошті або карткою.</div>
-            </div>
-        </div>
-    </section>
+<footer class="wrap"><span>Оригинальная парфюмерия. Распив от 3 мл.</span><span>Заказ через Telegram</span></footer>
 
-    <section class="catalog-section" id="catalog">
-        <div class="product-card" id="armaniCard" data-current-link="https://t.me/parfumsillage">
-            <div class="product-image-box">
-                <img src="armani.jpg" alt="Armani Stronger With You Intensely">
-            </div>
+<dialog id="modal" aria-labelledby="mt">
+  <h4 id="mt">Ваш заказ</h4>
+  <div class="sum">
+    <div><span>Аромат</span><b id="m-name"></b></div>
+    <div><span>Объём</span><b id="m-vol"></b></div>
+    <div class="total"><span>Итого</span><b id="m-sum"></b></div>
+  </div>
+  <pre id="m-text"></pre>
+  <div class="acts">
+    <a class="btn" id="tg" target="_blank" rel="noopener" data-mag>Отправить в Telegram</a>
+    <button class="btn g" id="copy" type="button">Скопировать заказ</button>
+    <button class="btn g" id="close" type="button">Закрыть</button>
+  </div>
+  <p class="ok" id="ok" role="status">Скопировано в буфер обмена</p>
+</dialog>
 
-            <div class="product-info">
-                <div class="product-brand">Giorgio Armani</div>
-                <div class="product-title">Stronger With You Intensely</div>
-                <p class="product-desc">Густий, солодкувато-пряний аромат з акордами зацукрованого каштану, кориці та карамелі. Створений для зимового морозу.</p>
+<script>
+// Впишите свой Telegram-username без @
+const TG_USERNAME = "your_username";
 
-                <div class="volume-selector">
-                    <button class="vol-btn active" data-price="230" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">3 мл</button>
-                    <button class="vol-btn" data-price="380" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">5 мл</button>
-                    <button class="vol-btn" data-price="730" data-link="https://t.me/parfumsillage" onclick="selectVolume(this)">10 мл</button>
-                </div>
+const PRICE_PER_ML = 70, VOLUMES = [3, 5, 10];
+const PERFUMES = [
+  { maker: "Emporio Armani", name: "Stronger With You Intensely", notes: ["Ваниль", "Корица", "Каштан"] },
+  { maker: "Jean Paul Gaultier", name: "Le Male Le Parfum", notes: ["Кардамон", "Лаванда", "Ирис", "Ваниль"] },
+  { maker: "Valentino", name: "Uomo Born in Roma Intense", notes: ["Шалфей", "Имбирь", "Ветивер", "Ваниль"] }
+];
+const fmt = n => n.toLocaleString("ru-RU") + " грн";
+const $ = id => document.getElementById(id);
+const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
+const calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-                <div class="product-bottom">
-                    <div class="product-price" id="armaniPrice">230 ₴</div>
-                    <button class="add-cart-btn" onclick="buyCurrentVolume()">Замовити</button>
-                </div>
-            </div>
-        </div>
-    </section>
+/* marquee */
+$("mq").innerHTML = Array(2).fill(["Original", "Распив от 3 мл", "70 грн / мл", "Armani", "Gaultier", "Valentino"].map(t => t + '<i>/</i>').join("")).join("");
 
-    <section class="atomizer-section" id="atomizers">
-        <h3 class="section-title">Як Виглядає Ваше Замовлення</h3>
-        <div class="atomizer-box">
-            <div class="atomizer-img">
-                <img src="flaconchik.jpg" alt="Наш атомайзер" onerror="this.src='armani.jpg';">
-            </div>
-            <div class="atomizer-text">
-                <h4>Преміальні Скляні Атомайзери</h4>
-                <p>Ми використовуємо лише якісні італійські скляні флакони з надійними металевими розпилювачами (спреями). Вони не протікають і зберігають аромат незмінним.</p>
-                <p style="color: #fff; font-weight: 600;">Доступні об'єми: 3 мл / 5 мл / 10 мл</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="pyramid-section">
-        <h3 class="section-title">Піраміда Аромату</h3>
-        <div class="pyramid-grid">
-            <div class="pyramid-card">
-                <h4>Верхні Ноти</h4>
-                <p>Рожевий перець, Ялівець, Фіалка</p>
-            </div>
-            <div class="pyramid-card">
-                <h4>Ноти Серця</h4>
-                <p>Зацукрований Каштан, Кориця, Шавлія</p>
-            </div>
-            <div class="pyramid-card">
-                <h4>Базові Ноти</h4>
-                <p>Ваніль, Тонка Боби, Амбра, Замша</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq">
-        <h3 class="section-title">Поширені Питання</h3>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">Що таке розпив парфуму? <span class="faq-toggle">+</span></div>
-            <div class="faq-answer">Розпив — це відбір оригінального аромату з великого фірмового флакону у менші зручні скляні атомайзери (на 3, 5 або 10 мл). Це дозволяє спробувати дороговартісний парфум за вигідною ціною.</div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">У які атомайзери ви наливаєте парфум? <span class="faq-toggle">+</span></div>
-            <div class="faq-answer">Ми використовуємо якісні скляні атомайзери з металевим розпилювачем. Скло не вступає в реакцію з духами, тому аромат залишається стійким та ідентичним початковому.</div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">Як перевірити оригінальність? <span class="faq-toggle">+</span></div>
-            <div class="faq-answer">Всі аромати закуповуються тільки у перевірених офіційних дистриб'юторів. Ми гарантуємо 100% автентичність кожної краплі та готові надати фото батч-кодів флаконів.</div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">Скільки тримається аромат? <span class="faq-toggle">+</span></div>
-            <div class="faq-answer">Stronger With You Intensely — один із найстійкіших зимових ароматів. На шкірі він відчувається 8-12 годин, а на одязі та куртках тримається кілька днів.</div>
-        </div>
-    </section>
-
-    <section class="reviews-section" id="reviews">
-        <h3 class="section-title">Відгуки Клієнтів</h3>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-author">Олександр В.</div>
-                <div class="review-rating">★★★★★</div>
-                <div class="review-text">"Замовляв 10 мл. Аромат неймовірний на зиму, стійкість більше 10 годин на куртці! Рекомендую."</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Максим К.</div>
-                <div class="review-rating">★★★★★</div>
-                <div class="review-text">"Дуже швидка доставка. Атомайзер якісний, не протікає. Шлейф бомба!"</div>
-            </div>
-            <div class="review-card">
-                <div class="review-author">Артем Л.</div>
-                <div class="review-rating">★★★★★</div>
-                <div class="review-text">"Взяв 3 мл на пробу, тепер замовляю 10 мл. 100% оригінал!"</div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h5>SCENT WINTER</h5>
-                <p style="color: var(--text-muted); font-size: 12px;">Селективна парфумерія на розпив. Оригінальні аромати у зручних атомайзерах.</p>
-            </div>
-            <div class="footer-col">
-                <h5>Навігація</h5>
-                <ul>
-                    <li><a href="#catalog">Каталог</a></li>
-                    <li><a href="#features">Переваги</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>Замовлення</h5>
-                <ul>
-                    <li><a href="https://t.me/parfumsillage" target="_blank">Telegram Канал</a></li>
-                    <li><a href="#" onclick="openModal()">Консультація</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 SCENT WINTER. Усі права захищені.</p>
-        </div>
-    </footer>
-
-    <div class="mobile-sticky-bar">
-        <div>
-            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Ціна:</div>
-            <div class="sticky-price" id="stickyPrice">230 ₴</div>
-        </div>
-        <button class="add-cart-btn" onclick="buyCurrentVolume()">Замовити</button>
+/* catalog */
+const state = PERFUMES.map(() => VOLUMES[0]);
+$("list").innerHTML = PERFUMES.map((p, i) => `
+<article class="item rv">
+  <div>
+    <div class="maker">${p.maker}</div>
+    <h3>${p.name}</h3>
+    <div class="notes">${p.notes.map(n => `<span>${n}</span>`).join("")}</div>
+  </div>
+  <div class="right">
+    <fieldset class="vol" aria-label="Объём: ${p.name}">
+      ${VOLUMES.map(v => `<input type="radio" name="v${i}" id="v${i}-${v}" value="${v}" ${v === VOLUMES[0] ? "checked" : ""}>
+      <label for="v${i}-${v}" data-mag><b>${v} мл</b><small>${fmt(v * PRICE_PER_ML)}</small></label>`).join("")}
+    </fieldset>
+    <div class="buy">
+      <div class="price" id="p${i}" aria-live="polite">${fmt(VOLUMES[0] * PRICE_PER_ML)}</div>
+      <button class="order" type="button" data-i="${i}" data-mag>Заказать</button>
     </div>
+  </div>
+</article>`).join("");
 
-    <script>
-        // Snow Effect
-        const canvas = document.getElementById('snowCanvas');
-        const ctx = canvas.getContext('2d');
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+$("list").addEventListener("change", e => {
+  if (e.target.type !== "radio") return;
+  const i = +e.target.name.slice(1);
+  state[i] = +e.target.value;
+  $("p" + i).textContent = fmt(state[i] * PRICE_PER_ML);
+});
 
-        const snowflakes = Array.from({ length: 60 }, () => ({
-            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 0.5, density: Math.random() * 0.5 + 0.2, opacity: Math.random() * 0.5 + 0.2
-        }));
+/* modal */
+const modal = $("modal");
+let text = "";
+$("list").addEventListener("click", e => {
+  const b = e.target.closest(".order"); if (!b) return;
+  const i = +b.dataset.i, p = PERFUMES[i], ml = state[i], sum = ml * PRICE_PER_ML, full = `${p.maker} — ${p.name}`;
+  $("m-name").textContent = full; $("m-vol").textContent = ml + " мл"; $("m-sum").textContent = fmt(sum);
+  text = `Здравствуйте! Хочу заказать распив:\n${full}\nОбъём: ${ml} мл\nСумма: ${fmt(sum)}`;
+  $("m-text").textContent = text;
+  $("tg").href = `https://t.me/${TG_USERNAME}?text=${encodeURIComponent(text)}`;
+  $("ok").classList.remove("show");
+  modal.showModal();
+});
+$("close").onclick = () => modal.close();
+modal.addEventListener("click", e => { if (e.target === modal) modal.close(); });
+$("copy").onclick = async () => {
+  const ok = $("ok");
+  try { await navigator.clipboard.writeText(text); ok.textContent = "Скопировано в буфер обмена"; }
+  catch { ok.textContent = "Не удалось скопировать. Выделите текст вручную."; }
+  ok.classList.add("show"); clearTimeout(ok.t); ok.t = setTimeout(() => ok.classList.remove("show"), 2200);
+};
 
-        function drawSnow() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            snowflakes.forEach(flake => {
-                ctx.beginPath();
-                ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-                ctx.globalAlpha = flake.opacity;
-                ctx.fill();
-                flake.y += flake.density;
-                flake.x += Math.sin(flake.y / 30) * 0.3;
-                if (flake.y > canvas.height) { flake.y = -5; flake.x = Math.random() * canvas.width; }
-            });
-            requestAnimationFrame(drawSnow);
-        }
-        drawSnow();
+/* scroll reveal */
+const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .15 });
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
 
-        // Modal
-        function openModal() { document.getElementById('consultModal').classList.add('active'); }
-        function closeModal() { document.getElementById('consultModal').classList.remove('active'); }
-
-        // FAQ Toggle
-        function toggleFaq(element) {
-            element.classList.toggle('active');
-        }
-
-        // Volume Selector
-        let count = 0;
-        function selectVolume(btn) {
-            const card = btn.closest('.product-card');
-            card.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const price = btn.getAttribute('data-price');
-            document.getElementById('armaniPrice').innerText = price + ' ₴';
-            document.getElementById('stickyPrice').innerText = price + ' ₴';
-
-            const link = btn.getAttribute('data-link');
-            card.setAttribute('data-current-link', link);
-        }
-
-        // Buy Action
-        function buyCurrentVolume() {
-            const card = document.getElementById('armaniCard');
-            const link = card.getAttribute('data-current-link') || "https://t.me/parfumsillage";
-            count++;
-            document.getElementById('cartCount').innerText = count;
-
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-                window.open(link, '_blank');
-            }, 600);
-        }
-
-        // GSAP
-        gsap.from(".hero h1", { duration: 1, y: 30, opacity: 0, ease: "power3.out" });
-    </script>
+/* cursor, spotlight, hero mask, magnetic */
+const spot = $("spot"), dot = $("dot"), ring = $("ring"), h1 = $("h1");
+let tx = innerWidth / 2, ty = innerHeight / 2, sx = tx, sy = ty, rx = tx, ry = ty;
+addEventListener("pointermove", e => {
+  tx = e.clientX; ty = e.clientY;
+  if (fine) { document.body.classList.add("cc"); dot.style.transform = `translate(${tx}px,${ty}px)`; }
+  const r = h1.getBoundingClientRect();
+  h1.style.setProperty("--hx", (tx - r.left) + "px"); h1.style.setProperty("--hy", (ty - r.top) + "px");
+}, { passive: true });
+(function loop() {
+  sx += (tx - sx) * .08; sy += (ty - sy) * .08; rx += (tx - rx) * .22; ry += (ty - ry) * .22;
+  spot.style.transform = `translate(${sx}px,${sy}px)`;
+  ring.style.transform = `translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(loop);
+})();
+if (fine && !calm) {
+  document.addEventListener("pointerover", e => { if (e.target.closest("a,button,label")) ring.classList.add("big"); });
+  document.addEventListener("pointerout", e => { if (e.target.closest("a,button,label")) ring.classList.remove("big"); });
+  document.addEventListener("pointermove", e => {
+    document.querySelectorAll("[data-mag]").forEach(el => {
+      const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dx = e.clientX - cx, dy = e.clientY - cy, near = Math.hypot(dx, dy) < Math.max(r.width, r.height) * .8;
+      el.style.transform = near ? `translate(${dx * .22}px,${dy * .3}px)` : "";
+      el.style.transition = near ? "transform .12s" : "transform .5s cubic-bezier(.2,.8,.2,1)";
+    });
+  }, { passive: true });
+}
+</script>
 </body>
 </html>
