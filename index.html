@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Распив оригинальных парфюмов</title>
+<title>Розпив оригінальних парфумів</title>
+<noscript><style>.rv{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#050505;--line:rgba(255,255,255,.08);--text:#ededed;--muted:#8d8d8d;--crim:#8B0000;--blood:#CC0000;--font:'Inter','Helvetica Neue',Arial,sans-serif;--mx:50%;--my:50%}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -31,20 +32,19 @@ a{color:inherit}
 .rv.in{opacity:1;transform:none;filter:none}
 
 /* hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;padding:28px 0 48px;border-bottom:1px solid var(--line)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:28px 0 48px;border-bottom:1px solid var(--line)}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
 .logo{font-weight:800}
 .status{display:flex;align-items:center;gap:10px;color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--blood);animation:pulse 1.8s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(204,0,0,.7)}70%{box-shadow:0 0 0 12px rgba(204,0,0,0)}100%{box-shadow:0 0 0 0 rgba(204,0,0,0)}}
 .hero-body{margin-top:auto;padding-top:80px}
-h1{font-weight:900;font-size:clamp(54px,15.5vw,236px);line-height:.84;letter-spacing:-.06em;text-transform:uppercase;
+h1{padding-right:.08em;font-weight:900;font-size:clamp(48px,14.5vw,200px);line-height:.84;letter-spacing:-.035em;text-transform:uppercase;
   color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);
   background:radial-gradient(circle 340px at var(--hx,50%) var(--hy,50%),var(--blood) 0%,var(--crim) 40%,transparent 70%),linear-gradient(#ededed,#ededed);
   background-size:100% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;
   background-repeat:no-repeat;transition:-webkit-text-stroke-color .4s}
 h1 span{display:block}
-h1 .l2{-webkit-text-stroke-color:rgba(255,255,255,.2)}
 h1:hover{-webkit-text-stroke-color:rgba(255,80,80,.9)}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .hero-foot p{max-width:42ch;color:var(--muted);font-size:17px;font-weight:300}
@@ -56,14 +56,14 @@ h1:hover{-webkit-text-stroke-color:rgba(255,80,80,.9)}
 .mq{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;position:relative;z-index:2;padding:18px 0;font-weight:800;font-size:clamp(18px,3vw,30px);letter-spacing:-.01em;color:rgba(255,255,255,.18)}
 .mq div{display:inline-block;animation:mq 28s linear infinite}
 .mq i{font-style:normal;color:var(--blood);margin:0 28px}
-@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes mq{to{transform:translateX(-25%)}}
 
 /* catalog */
-.catalog{padding:120px 0 60px}
+.catalog{padding:120px 28px 60px}
 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px}
 .head h2{font-weight:900;font-size:clamp(40px,7vw,96px);letter-spacing:-.045em;line-height:.9}
 .head p{color:var(--muted);max-width:34ch}
-.item{border-radius:0;position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:36px 56px;padding:44px 0;border-top:1px solid var(--line);transition:background .5s}
+.item{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:36px 56px;padding:44px 0;border-top:1px solid var(--line)}
 .item:last-child{border-bottom:1px solid var(--line)}
 .item::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--blood);transition:width .8s cubic-bezier(.2,.7,.2,1)}
 .item:hover::before{width:100%}
@@ -74,7 +74,7 @@ h1:hover{-webkit-text-stroke-color:rgba(255,80,80,.9)}
 .notes span{border-radius:999px;padding:7px 16px;border:1px solid var(--line);font-size:13px;color:#c9c9c9;transition:border-color .3s,color .3s}
 .item:hover .notes span{border-color:rgba(204,0,0,.45)}
 .right{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-fieldset{border:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .vol input{position:absolute;opacity:0;pointer-events:none}
 .vol label{border-radius:18px;display:block;padding:16px 8px;text-align:center;border:1px solid var(--line);background:rgba(255,255,255,.015);cursor:pointer;transition:border-color .3s,background .3s,box-shadow .3s,color .3s;will-change:transform}
 .vol label b{display:block;font-size:20px;font-weight:800}
@@ -88,10 +88,16 @@ fieldset{border:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .price small{font-size:17px;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:0}
 .order{border-radius:999px;font:inherit;font-weight:500;letter-spacing:.04em;color:var(--text);background:transparent;border:1px solid rgba(255,255,255,.6);padding:17px 34px;cursor:pointer;transition:background .3s,border-color .3s,color .3s;will-change:transform}
 .order:hover{background:linear-gradient(120deg,var(--crim),var(--blood));border-color:var(--blood);color:#fff}
-footer{padding:56px 0 72px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);position:relative;z-index:2}
+footer{padding:56px 28px 72px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);position:relative;z-index:2}
+
+[data-mag]{transition:translate .3s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s,color .3s,filter .3s!important}
+body:has(dialog[open]){overflow:hidden}
+body.nm .cur-dot,body.nm .cur-ring{opacity:0!important}
+body.cc.nm *{cursor:auto!important}
+body.cc.nm a,body.cc.nm button{cursor:pointer!important}
 
 /* modal */
-dialog{border-radius:28px;margin:auto;width:min(480px,calc(100% - 28px));color:var(--text);padding:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(139,0,0,.12));backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);overflow:hidden}
+dialog{border-radius:28px;margin:auto;width:min(480px,calc(100% - 28px));color:var(--text);padding:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(139,0,0,.12));backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);overflow-y:auto;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
 dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
 dialog[open]{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
 dialog[open]::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--blood),transparent);animation:scan .9s ease-out}
@@ -113,7 +119,7 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 .ok.show{opacity:1;transform:none}
 
 @media(max-width:860px){.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
 </style>
 </head>
 <body>
@@ -121,13 +127,13 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 <div class="cur-ring" id="ring"></div><div class="cur-dot" id="dot"></div>
 
 <header class="hero">
-  <div class="wrap" style="display:flex;flex-direction:column;flex:1">
-    <div class="top rv"><span class="logo">Распив</span><span class="status"><i class="dot"></i>Status: available // 2026 collection</span></div>
+  <div class="wrap" style="display:flex;flex-direction:column;flex:1;width:100%">
+    <div class="top rv"><span class="logo">Розпив</span><span class="status"><i class="dot"></i>Status: available // 2026 collection</span></div>
     <div class="hero-body">
-      <h1 id="h1" class="rv" style="--d:.15s"><span>Оригинал</span><span class="l2">по капле</span></h1>
+      <h1 id="h1" class="rv" style="--d:.15s"><span>Оригінал</span><span>по краплі</span></h1>
       <div class="hero-foot rv" style="--d:.35s">
-        <p>Только <b>оригинальный распив от 3 мл</b>. Попробуйте аромат на коже до покупки флакона.</p>
-        <a class="go" href="#catalog" data-mag>Перейти к каталогу</a>
+        <p>Лише <b>оригінальний розпив від 3 мл</b>. Спробуйте аромат на шкірі до купівлі флакона.</p>
+        <a class="go" href="#catalog" data-mag>Перейти до каталогу</a>
       </div>
     </div>
   </div>
@@ -138,46 +144,46 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 <main class="wrap catalog" id="catalog">
   <div class="head">
     <h2 class="rv">Каталог</h2>
-    <p class="rv" style="--d:.15s">1 мл стоит 70 грн. Доступные объёмы: 3, 5 и 10 мл.</p>
+    <p class="rv" style="--d:.15s">1 мл коштує 70 грн. Доступні об’єми: 3, 5 та 10 мл.</p>
   </div>
   <div id="list"></div>
 </main>
 
-<footer class="wrap"><span>Оригинальная парфюмерия. Распив от 3 мл.</span><span>Заказ через Telegram</span></footer>
+<footer class="wrap"><span>Оригінальна парфумерія. Розпив від 3 мл.</span><span>Замовлення через Telegram</span></footer>
 
 <dialog id="modal" aria-labelledby="mt">
-  <h4 id="mt">Ваш заказ</h4>
+  <h4 id="mt">Ваше замовлення</h4>
   <div class="sum">
     <div><span>Аромат</span><b id="m-name"></b></div>
-    <div><span>Объём</span><b id="m-vol"></b></div>
-    <div class="total"><span>Итого</span><b id="m-sum"></b></div>
+    <div><span>Об’єм</span><b id="m-vol"></b></div>
+    <div class="total"><span>Разом</span><b id="m-sum"></b></div>
   </div>
   <pre id="m-text"></pre>
   <div class="acts">
-    <a class="btn" id="tg" target="_blank" rel="noopener" data-mag>Отправить в Telegram</a>
-    <button class="btn g" id="copy" type="button">Скопировать заказ</button>
-    <button class="btn g" id="close" type="button">Закрыть</button>
+    <a class="btn" id="tg" target="_blank" rel="noopener" data-mag>Надіслати в Telegram</a>
+    <button class="btn g" id="copy" type="button">Скопіювати замовлення</button>
+    <button class="btn g" id="close" type="button">Закрити</button>
   </div>
-  <p class="ok" id="ok" role="status">Скопировано в буфер обмена</p>
+  <p class="ok" id="ok" role="status">Скопійовано в буфер обміну</p>
 </dialog>
 
 <script>
-// Впишите свой Telegram-username без @
+// Впишіть свій Telegram-username без @
 const TG_USERNAME = "your_username";
 
 const PRICE_PER_ML = 70, VOLUMES = [3, 5, 10];
 const PERFUMES = [
-  { maker: "Emporio Armani", name: "Stronger With You Intensely", notes: ["Ваниль", "Корица", "Каштан"] },
-  { maker: "Jean Paul Gaultier", name: "Le Male Le Parfum", notes: ["Кардамон", "Лаванда", "Ирис", "Ваниль"] },
-  { maker: "Valentino", name: "Uomo Born in Roma Intense", notes: ["Шалфей", "Имбирь", "Ветивер", "Ваниль"] }
+  { maker: "Emporio Armani", name: "Stronger With You Intensely", notes: ["Ваніль", "Кориця", "Каштан"] },
+  { maker: "Jean Paul Gaultier", name: "Le Male Le Parfum", notes: ["Кардамон", "Лаванда", "Ірис", "Ваніль"] },
+  { maker: "Valentino", name: "Uomo Born in Roma Intense", notes: ["Шавлія", "Імбир", "Ветивер", "Ваніль"] }
 ];
-const fmt = n => n.toLocaleString("ru-RU") + " грн";
+const fmt = n => n.toLocaleString("uk-UA") + " грн";
 const $ = id => document.getElementById(id);
 const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 const calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 /* marquee */
-$("mq").innerHTML = Array(2).fill(["Original", "Распив от 3 мл", "70 грн / мл", "Armani", "Gaultier", "Valentino"].map(t => t + '<i>/</i>').join("")).join("");
+$("mq").innerHTML = Array(4).fill(["Original", "Розпив від 3 мл", "70 грн / мл", "Armani", "Gaultier", "Valentino"].map(t => t + '<i>/</i>').join("")).join("");
 
 /* catalog */
 const state = PERFUMES.map(() => VOLUMES[0]);
@@ -189,13 +195,13 @@ $("list").innerHTML = PERFUMES.map((p, i) => `
     <div class="notes">${p.notes.map(n => `<span>${n}</span>`).join("")}</div>
   </div>
   <div class="right">
-    <fieldset class="vol" aria-label="Объём: ${p.name}">
+    <fieldset class="vol" aria-label="Об’єм: ${p.name}">
       ${VOLUMES.map(v => `<input type="radio" name="v${i}" id="v${i}-${v}" value="${v}" ${v === VOLUMES[0] ? "checked" : ""}>
       <label for="v${i}-${v}" data-mag><b>${v} мл</b><small>${fmt(v * PRICE_PER_ML)}</small></label>`).join("")}
     </fieldset>
     <div class="buy">
       <div class="price" id="p${i}" aria-live="polite">${fmt(VOLUMES[0] * PRICE_PER_ML)}</div>
-      <button class="order" type="button" data-i="${i}" data-mag>Заказать</button>
+      <button class="order" type="button" data-i="${i}" data-mag>Замовити</button>
     </div>
   </div>
 </article>`).join("");
@@ -214,18 +220,34 @@ $("list").addEventListener("click", e => {
   const b = e.target.closest(".order"); if (!b) return;
   const i = +b.dataset.i, p = PERFUMES[i], ml = state[i], sum = ml * PRICE_PER_ML, full = `${p.maker} — ${p.name}`;
   $("m-name").textContent = full; $("m-vol").textContent = ml + " мл"; $("m-sum").textContent = fmt(sum);
-  text = `Здравствуйте! Хочу заказать распив:\n${full}\nОбъём: ${ml} мл\nСумма: ${fmt(sum)}`;
+  text = `Доброго дня! Хочу замовити розпив:\n${full}\nОб’єм: ${ml} мл\nСума: ${fmt(sum)}`;
   $("m-text").textContent = text;
   $("tg").href = `https://t.me/${TG_USERNAME}?text=${encodeURIComponent(text)}`;
   $("ok").classList.remove("show");
+  document.body.classList.add("nm");
   modal.showModal();
 });
+modal.addEventListener("close", () => document.body.classList.remove("nm"));
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch {
+    const a = document.createElement("textarea");
+    a.value = t; a.style.cssText = "position:fixed;opacity:0;left:0;top:0";
+    modal.appendChild(a); a.select();
+    let done = false;
+    try { done = document.execCommand("copy"); } catch {}
+    a.remove(); return done;
+  }
+}
 $("close").onclick = () => modal.close();
-modal.addEventListener("click", e => { if (e.target === modal) modal.close(); });
+modal.addEventListener("click", e => {
+  if (e.target !== modal) return;
+  const b = modal.getBoundingClientRect();
+  if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) modal.close();
+});
 $("copy").onclick = async () => {
   const ok = $("ok");
-  try { await navigator.clipboard.writeText(text); ok.textContent = "Скопировано в буфер обмена"; }
-  catch { ok.textContent = "Не удалось скопировать. Выделите текст вручную."; }
+  ok.textContent = (await copyText(text)) ? "Скопійовано в буфер обміну" : "Не вдалося скопіювати. Виділіть текст вручну.";
   ok.classList.add("show"); clearTimeout(ok.t); ok.t = setTimeout(() => ok.classList.remove("show"), 2200);
 };
 
@@ -242,6 +264,7 @@ addEventListener("pointermove", e => {
   const r = h1.getBoundingClientRect();
   h1.style.setProperty("--hx", (tx - r.left) + "px"); h1.style.setProperty("--hy", (ty - r.top) + "px");
 }, { passive: true });
+document.documentElement.addEventListener("pointerleave", () => document.body.classList.remove("cc"));
 (function loop() {
   sx += (tx - sx) * .08; sy += (ty - sy) * .08; rx += (tx - rx) * .22; ry += (ty - ry) * .22;
   spot.style.transform = `translate(${sx}px,${sy}px)`;
@@ -255,8 +278,7 @@ if (fine && !calm) {
     document.querySelectorAll("[data-mag]").forEach(el => {
       const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = e.clientX - cx, dy = e.clientY - cy, near = Math.hypot(dx, dy) < Math.max(r.width, r.height) * .8;
-      el.style.transform = near ? `translate(${dx * .22}px,${dy * .3}px)` : "";
-      el.style.transition = near ? "transform .12s" : "transform .5s cubic-bezier(.2,.8,.2,1)";
+      el.style.translate = near ? `${dx * .22}px ${dy * .3}px` : "";
     });
   }, { passive: true });
 }
