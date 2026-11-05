@@ -40,12 +40,11 @@ a{color:inherit}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(204,0,0,.7)}70%{box-shadow:0 0 0 12px rgba(204,0,0,0)}100%{box-shadow:0 0 0 0 rgba(204,0,0,0)}}
 .hero-body{margin-top:auto;padding-top:80px}
 h1{padding-right:.08em;font-weight:900;font-size:clamp(48px,14.5vw,200px);line-height:.84;letter-spacing:-.035em;text-transform:uppercase;
-  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);
+  color:transparent;
   background:radial-gradient(circle 340px at var(--hx,50%) var(--hy,50%),var(--blood) 0%,var(--crim) 40%,transparent 70%),linear-gradient(#ededed,#ededed);
   background-size:100% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;
-  background-repeat:no-repeat;transition:-webkit-text-stroke-color .4s}
+  background-repeat:no-repeat}
 h1 span{display:block}
-h1:hover{-webkit-text-stroke-color:rgba(255,80,80,.9)}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .hero-foot p{max-width:42ch;color:var(--muted);font-size:17px;font-weight:300}
 .hero-foot p b{color:var(--text);font-weight:500}
@@ -88,7 +87,15 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 .price small{font-size:17px;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:0}
 .order{border-radius:999px;font:inherit;font-weight:500;letter-spacing:.04em;color:var(--text);background:transparent;border:1px solid rgba(255,255,255,.6);padding:17px 34px;cursor:pointer;transition:background .3s,border-color .3s,color .3s;will-change:transform}
 .order:hover{background:linear-gradient(120deg,var(--crim),var(--blood));border-color:var(--blood);color:#fff}
-footer{padding:56px 28px 72px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);position:relative;z-index:2}
+.foot{position:relative;z-index:2;overflow:hidden;border-top:1px solid var(--line)}
+.cta{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;flex-wrap:wrap;padding:110px 0 72px}
+.cta h2{font-weight:900;font-size:clamp(34px,6.2vw,88px);line-height:.95;letter-spacing:-.045em;max-width:14ch}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:40px 0;border-top:1px solid var(--line)}
+.cols h5{font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.cols a,.cols span{display:block;padding:4px 0;color:#d4d4d4;text-decoration:none;font-size:16px;transition:color .25s}
+.cols a:hover{color:#ff4040}
+.mark{margin-top:24px;padding-top:24px;text-align:center;white-space:nowrap;overflow:hidden;user-select:none;font-weight:900;text-transform:uppercase;font-size:clamp(64px,19vw,280px);line-height:.8;letter-spacing:-.04em;color:transparent;background:linear-gradient(180deg,rgba(204,0,0,.55),rgba(139,0,0,.04) 88%);-webkit-background-clip:text;background-clip:text}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:22px;padding-bottom:30px;background:linear-gradient(var(--line),var(--line)) center top/calc(100% - 56px) 1px no-repeat;color:var(--muted);font-size:13px}
 
 [data-mag]{transition:translate .3s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s,color .3s,filter .3s!important}
 body:has(dialog[open]){overflow:hidden}
@@ -118,7 +125,7 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 .ok{margin-top:14px;min-height:22px;font-size:14px;color:#ff6a6a;opacity:0;transform:translateY(6px);transition:.35s}
 .ok.show{opacity:1;transform:none}
 
-@media(max-width:860px){.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
+@media(max-width:860px){.cols{grid-template-columns:1fr 1fr}.cta{padding:80px 0 48px}.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
 </style>
 </head>
@@ -126,7 +133,7 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 <div class="spot" id="spot"></div><div class="noise"></div>
 <div class="cur-ring" id="ring"></div><div class="cur-dot" id="dot"></div>
 
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap" style="display:flex;flex-direction:column;flex:1;width:100%">
     <div class="top rv"><span class="logo">Розпив</span><span class="status"><i class="dot"></i>Status: available // 2026 collection</span></div>
     <div class="hero-body">
@@ -149,7 +156,21 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
   <div id="list"></div>
 </main>
 
-<footer class="wrap"><span>Оригінальна парфумерія. Розпив від 3 мл.</span><span>Замовлення через Telegram</span></footer>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cta">
+      <h2 class="rv">Обирайте аромат. Решту — в Telegram.</h2>
+      <a class="go rv" id="f-tg" target="_blank" rel="noopener" data-mag style="--d:.15s">Написати в Telegram</a>
+    </div>
+    <div class="cols rv">
+      <div><h5>Розділи</h5><a href="#catalog">Каталог</a><a href="#top">Нагору</a></div>
+      <div><h5>Розпив</h5><div id="f-prices"></div></div>
+      <div><h5>Контакти</h5><a id="f-tg2" target="_blank" rel="noopener">Telegram</a></div>
+    </div>
+  </div>
+  <div class="mark rv" aria-hidden="true">Розпив</div>
+  <div class="wrap legal"><span>© <span id="f-year" style="display:inline;padding:0;font-size:inherit;color:inherit"></span> Розпив. Оригінальна парфумерія.</span><span>1 мл — 70 грн</span></div>
+</footer>
 
 <dialog id="modal" aria-labelledby="mt">
   <h4 id="mt">Ваше замовлення</h4>
@@ -160,7 +181,7 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
   </div>
   <pre id="m-text"></pre>
   <div class="acts">
-    <a class="btn" id="tg" target="_blank" rel="noopener" data-mag>Надіслати в Telegram</a>
+    <a class="btn" id="tg" target="_blank" rel="noopener">Надіслати в Telegram</a>
     <button class="btn g" id="copy" type="button">Скопіювати замовлення</button>
     <button class="btn g" id="close" type="button">Закрити</button>
   </div>
@@ -214,6 +235,11 @@ $("list").addEventListener("change", e => {
 });
 
 /* modal */
+const tgLink = `https://t.me/${TG_USERNAME}`;
+$("f-tg").href = tgLink; $("f-tg2").href = tgLink; $("f-tg2").textContent = "@" + TG_USERNAME;
+$("f-prices").innerHTML = VOLUMES.map(v => `<span>${v} мл — ${fmt(v * PRICE_PER_ML)}</span>`).join("");
+$("f-year").textContent = new Date().getFullYear();
+
 const modal = $("modal");
 let text = "";
 $("list").addEventListener("click", e => {
@@ -276,9 +302,11 @@ if (fine && !calm) {
   document.addEventListener("pointerout", e => { if (e.target.closest("a,button,label")) ring.classList.remove("big"); });
   document.addEventListener("pointermove", e => {
     document.querySelectorAll("[data-mag]").forEach(el => {
-      const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      const dx = e.clientX - cx, dy = e.clientY - cy, near = Math.hypot(dx, dy) < Math.max(r.width, r.height) * .8;
-      el.style.translate = near ? `${dx * .22}px ${dy * .3}px` : "";
+      const r = el.getBoundingClientRect(), m = 36;
+      const near = r.width && e.clientX > r.left - m && e.clientX < r.right + m && e.clientY > r.top - m && e.clientY < r.bottom + m;
+      const cl = (v, k) => Math.max(-k, Math.min(k, v));
+      const dx = cl((e.clientX - (r.left + r.width / 2)) * .2, 10), dy = cl((e.clientY - (r.top + r.height / 2)) * .25, 8);
+      el.style.translate = near ? `${dx}px ${dy}px` : "";
     });
   }, { passive: true });
 }
