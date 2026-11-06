@@ -234,8 +234,8 @@ dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:16p
 
 <script>
 const TG_CHANNEL = "https://t.me/parfumsillage";
-// Адреса вашої серверної функції (див. інструкцію). Поки порожньо, сайт підкаже написати в Telegram.
-const ORDER_ENDPOINT = "";
+// Адреса Cloudflare Worker, який пересилає замовлення тобі в Telegram.
+const ORDER_ENDPOINT = "https://order.wasserschwein040.workers.dev";
 
 const VOLUMES = [3, 5, 10];
 const PRICES = { 3: 210, 5: 360, 10: 710 };
@@ -346,15 +346,14 @@ form.addEventListener("submit", async e => {
   if (!cart.length) return;
   if (!d.name.trim() || !d.contact.trim() || !d.city.trim()) { err.textContent = "Заповніть ім’я, контакт і місто."; return; }
   btn.disabled = true; btn.textContent = "Надсилаємо…";
-  const items = cart.map(({ i, ml, q }) => ({ i, ml, q }));
+  const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nІм’я: ${d.name}\nКонтакт: ${d.contact}\nМісто: ${d.city}\nНова пошта: ${d.np || "-"}\n${d.comment || ""}`;
   try {
     if (!ORDER_ENDPOINT) throw new Error("no endpoint");
-    const res = await fetch(ORDER_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...d, items }) });
+    const res = await fetch(ORDER_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ website: d.website, text }) });
     if (!res.ok) throw new Error("http " + res.status);
     cart.length = 0; form.reset();
     $("cartview").hidden = true; $("done").hidden = false;
   } catch {
-    const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nІм’я: ${d.name}\nКонтакт: ${d.contact}\nМісто: ${d.city}\nНова пошта: ${d.np || "-"}\n${d.comment || ""}`;
     const copied = await copyText(text);
     err.textContent = copied ? "Не вдалося надіслати автоматично. Замовлення скопійовано, вставте його в Telegram." : "Не вдалося надіслати автоматично. Напишіть нам у Telegram.";
     $("tgfb").href = TG_CHANNEL; $("tgfb").hidden = false;
