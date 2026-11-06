@@ -193,11 +193,11 @@ dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:16p
     <div class="tot"><span>Разом</span><b id="otot"></b></div>
     <form class="f" id="f" novalidate>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label>Ім’я<input name="name" required maxlength="60" autocomplete="name"></label>
-      <label>Телефон або нік у Telegram<input name="contact" required maxlength="60" autocomplete="tel"></label>
+      <label>ПІБ<input name="name" required maxlength="80" autocomplete="name" placeholder="Прізвище Ім’я По батькові"></label>
+      <label>Номер телефону<input name="contact" type="tel" inputmode="tel" required maxlength="20" autocomplete="tel" placeholder="+380"></label>
       <div class="two">
         <label>Місто<input name="city" required maxlength="60" autocomplete="address-level2"></label>
-        <label>Відділення Нової пошти<input name="np" maxlength="80" placeholder="№"></label>
+        <label>Відділення Нової пошти<input name="np" required maxlength="80" placeholder="№"></label>
       </div>
       <label>Коментар<textarea name="comment" rows="2" maxlength="300"></textarea></label>
       <p class="err" id="err" role="alert"></p>
@@ -344,9 +344,10 @@ form.addEventListener("submit", async e => {
   const d = Object.fromEntries(new FormData(form)), err = $("err"), btn = $("send");
   err.textContent = "";
   if (!cart.length) return;
-  if (!d.name.trim() || !d.contact.trim() || !d.city.trim()) { err.textContent = "Заповніть ім’я, контакт і місто."; return; }
+  if (!d.name.trim() || !d.contact.trim() || !d.city.trim() || !d.np.trim()) { err.textContent = "Заповніть ПІБ, телефон, місто та відділення Нової пошти."; return; }
+  if (d.contact.replace(/\D/g, "").length < 10) { err.textContent = "Вкажіть коректний номер телефону."; return; }
   btn.disabled = true; btn.textContent = "Надсилаємо…";
-  const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nІм’я: ${d.name}\nКонтакт: ${d.contact}\nМісто: ${d.city}\nНова пошта: ${d.np || "-"}\n${d.comment || ""}`;
+  const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nПІБ: ${d.name}\nТелефон: ${d.contact}\nМісто: ${d.city}\nВідділення Нової пошти: ${d.np}\nКоментар: ${d.comment || "-"}`;
   try {
     if (!ORDER_ENDPOINT) throw new Error("no endpoint");
     const res = await fetch(ORDER_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ website: d.website, text }) });
