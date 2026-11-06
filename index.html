@@ -98,6 +98,45 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 .legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:22px;padding-bottom:30px;background:linear-gradient(var(--line),var(--line)) center top/calc(100% - 56px) 1px no-repeat;color:var(--muted);font-size:13px}
 
 [data-mag]{transition:translate .3s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s,color .3s,filter .3s!important}
+[hidden]{display:none!important}
+body:has(dialog[open]){overflow:hidden}
+body.nm .cur-dot,body.nm .cur-ring{opacity:0!important}
+body.cc.nm *{cursor:auto!important}
+body.cc.nm a,body.cc.nm button{cursor:pointer!important}
+.post{color:var(--muted);font-size:14px;text-underline-offset:4px;transition:color .25s}
+.post:hover{color:#ff4040}
+.cartbtn{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;padding:15px 24px;border:1px solid var(--blood);border-radius:999px;background:linear-gradient(120deg,var(--crim),var(--blood));color:#fff;font:inherit;font-weight:500;cursor:pointer}
+.cartbtn b{background:#fff;color:var(--crim);min-width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800}
+dialog{border-radius:28px;margin:auto;width:min(520px,calc(100% - 24px));max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;color:var(--text);padding:32px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(139,0,0,.14));backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3)}
+dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
+dialog[open]{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
+dialog[open]::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--blood),transparent);animation:scan .9s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes scan{from{top:0;opacity:1}to{top:100%;opacity:0}}
+dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:16px}
+.lines{list-style:none}
+.lines li{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.lines b{font-weight:500;display:block}
+.lines span{color:var(--muted);font-size:14px}
+.lines em{font-style:normal;font-weight:800}
+.rm{font:inherit;font-size:20px;line-height:1;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s}
+.rm:hover{border-color:var(--blood);color:#fff}
+.tot{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tot span{color:var(--muted)}.tot b{font-size:26px;font-weight:900;color:#ff3b3b}
+.f label{display:block;font-size:13px;color:var(--muted);margin-top:14px}
+.f input,.f textarea{display:block;width:100%;margin-top:6px;padding:14px 16px;font:inherit;font-size:16px;color:var(--text);background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;transition:border-color .2s;resize:none}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--blood)}
+.hp{position:absolute!important;left:-9999px;opacity:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{min-height:22px;margin-top:12px;font-size:14px;color:#ff6a6a}
+.acts{display:grid;gap:10px;margin-top:8px}
+.btn{font:inherit;font-weight:500;padding:16px;text-align:center;text-decoration:none;cursor:pointer;border:1px solid var(--blood);border-radius:999px;background:linear-gradient(120deg,var(--crim),var(--blood));color:#fff;transition:filter .3s}
+.btn:hover{filter:brightness(1.2)}
+.btn:disabled{opacity:.5;cursor:default;filter:none}
+.btn.g{background:transparent;border-color:var(--line);color:var(--text)}
+.btn.g:hover{border-color:rgba(255,255,255,.4);filter:none}
+.done p{color:var(--muted);margin-bottom:20px}
+@media(max-width:520px){.two{grid-template-columns:1fr}dialog{padding:24px}}
 /* animations */
 .bar{position:fixed;left:0;top:0;right:0;height:2px;z-index:99;background:linear-gradient(90deg,var(--crim),var(--blood));transform-origin:0 50%;transform:scaleX(var(--p,0))}
 .go{position:relative;overflow:hidden}
@@ -145,6 +184,37 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
   <div id="list"></div>
 </main>
 
+<button class="cartbtn" id="cartbtn" type="button" hidden>Замовлення <b id="cc">0</b> <span id="cs"></span></button>
+
+<dialog id="ord" aria-labelledby="ot">
+  <div id="cartview">
+    <h4 id="ot">Ваше замовлення</h4>
+    <ul class="lines" id="lines"></ul>
+    <div class="tot"><span>Разом</span><b id="otot"></b></div>
+    <form class="f" id="f" novalidate>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Ім’я<input name="name" required maxlength="60" autocomplete="name"></label>
+      <label>Телефон або нік у Telegram<input name="contact" required maxlength="60" autocomplete="tel"></label>
+      <div class="two">
+        <label>Місто<input name="city" required maxlength="60" autocomplete="address-level2"></label>
+        <label>Відділення Нової пошти<input name="np" maxlength="80" placeholder="№"></label>
+      </div>
+      <label>Коментар<textarea name="comment" rows="2" maxlength="300"></textarea></label>
+      <p class="err" id="err" role="alert"></p>
+      <div class="acts">
+        <button class="btn" id="send" type="submit">Надіслати замовлення</button>
+        <a class="btn g" id="tgfb" target="_blank" rel="noopener" hidden>Написати в Telegram</a>
+        <button class="btn g" id="more" type="button">Додати ще аромат</button>
+      </div>
+    </form>
+  </div>
+  <div class="done" id="done" hidden>
+    <h4>Дякуємо!</h4>
+    <p>Замовлення надіслано. Ми зв’яжемося з вами, щоб підтвердити його та домовитись про оплату.</p>
+    <div class="acts"><button class="btn" id="dclose" type="button">Закрити</button></div>
+  </div>
+</dialog>
+
 <footer class="foot">
   <div class="wrap">
     <div class="cta">
@@ -164,6 +234,8 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 
 <script>
 const TG_CHANNEL = "https://t.me/parfumsillage";
+// Адреса вашої серверної функції (див. інструкцію). Поки порожньо, сайт підкаже написати в Telegram.
+const ORDER_ENDPOINT = "";
 
 const VOLUMES = [3, 5, 10];
 const PRICES = { 3: 210, 5: 360, 10: 710 };
@@ -197,8 +269,9 @@ $("list").innerHTML = PERFUMES.map((p, i) => `
     </fieldset>
     <div class="buy">
       <div class="price" id="p${i}" aria-live="polite">${fmt(PRICES[VOLUMES[0]])}</div>
-      <a class="order" href="${p.link}" target="_blank" rel="noopener" data-mag>Замовити</a>
+      <button class="order" type="button" data-i="${i}" data-mag>Замовити</button>
     </div>
+    <a class="post" href="${p.link}" target="_blank" rel="noopener">Дивитись пост у Telegram</a>
   </div>
 </article>`).join("");
 
@@ -226,6 +299,68 @@ $("list").addEventListener("change", e => {
 $("f-tg").href = TG_CHANNEL; $("f-tg2").href = TG_CHANNEL; $("f-tg2").textContent = "@parfumsillage";
 $("f-prices").innerHTML = VOLUMES.map(v => `<span>${v} мл — ${fmt(PRICES[v])}</span>`).join("");
 $("f-year").textContent = new Date().getFullYear();
+
+/* cart and order */
+const cart = [], ord = $("ord"), form = $("f");
+const total = () => cart.reduce((a, x) => a + PRICES[x.ml] * x.q, 0);
+const itemName = x => `${PERFUMES[x.i].maker} — ${PERFUMES[x.i].name}`;
+function renderCart() {
+  const n = cart.reduce((a, x) => a + x.q, 0);
+  $("cartbtn").hidden = !n || ord.open;
+  $("cc").textContent = n; $("cs").textContent = fmt(total()); $("otot").textContent = fmt(total());
+  $("lines").innerHTML = cart.map((x, k) => `<li><div><b>${itemName(x)}</b><span>${x.ml} мл × ${x.q}</span></div><em>${fmt(PRICES[x.ml] * x.q)}</em><button type="button" class="rm" data-k="${k}" aria-label="Прибрати">×</button></li>`).join("");
+  $("send").disabled = !n;
+}
+function openOrder() {
+  $("cartview").hidden = false; $("done").hidden = true; $("tgfb").hidden = true; $("err").textContent = "";
+  $("send").textContent = "Надіслати замовлення";
+  renderCart(); document.body.classList.add("nm"); ord.showModal();
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch { return false; }
+}
+$("list").addEventListener("click", e => {
+  const b = e.target.closest(".order"); if (!b) return;
+  const i = +b.dataset.i, ml = state[i], f = cart.find(x => x.i === i && x.ml === ml);
+  if (f) f.q = Math.min(10, f.q + 1); else cart.push({ i, ml, q: 1 });
+  openOrder();
+});
+$("cartbtn").onclick = openOrder;
+$("more").onclick = () => ord.close();
+$("dclose").onclick = () => ord.close();
+ord.addEventListener("close", () => { document.body.classList.remove("nm"); renderCart(); });
+ord.addEventListener("click", e => {
+  if (e.target !== ord) return;
+  const b = ord.getBoundingClientRect();
+  if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) ord.close();
+});
+$("lines").addEventListener("click", e => {
+  const b = e.target.closest(".rm"); if (!b) return;
+  cart.splice(+b.dataset.k, 1); renderCart(); if (!cart.length) ord.close();
+});
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(form)), err = $("err"), btn = $("send");
+  err.textContent = "";
+  if (!cart.length) return;
+  if (!d.name.trim() || !d.contact.trim() || !d.city.trim()) { err.textContent = "Заповніть ім’я, контакт і місто."; return; }
+  btn.disabled = true; btn.textContent = "Надсилаємо…";
+  const items = cart.map(({ i, ml, q }) => ({ i, ml, q }));
+  try {
+    if (!ORDER_ENDPOINT) throw new Error("no endpoint");
+    const res = await fetch(ORDER_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...d, items }) });
+    if (!res.ok) throw new Error("http " + res.status);
+    cart.length = 0; form.reset();
+    $("cartview").hidden = true; $("done").hidden = false;
+  } catch {
+    const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nІм’я: ${d.name}\nКонтакт: ${d.contact}\nМісто: ${d.city}\nНова пошта: ${d.np || "-"}\n${d.comment || ""}`;
+    const copied = await copyText(text);
+    err.textContent = copied ? "Не вдалося надіслати автоматично. Замовлення скопійовано, вставте його в Telegram." : "Не вдалося надіслати автоматично. Напишіть нам у Telegram.";
+    $("tgfb").href = TG_CHANNEL; $("tgfb").hidden = false;
+    btn.disabled = false; btn.textContent = "Спробувати ще раз";
+  }
+});
 
 /* scroll progress */
 const bar = $("bar");
