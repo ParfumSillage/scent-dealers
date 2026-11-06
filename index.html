@@ -70,7 +70,7 @@ h1 span{display:block}
 .item h3{font-weight:900;font-size:clamp(30px,4.4vw,60px);line-height:1;letter-spacing:-.04em;margin:10px 0 24px;transition:color .3s}
 .item:hover h3{color:#fff;text-shadow:0 0 40px rgba(204,0,0,.55)}
 .notes{display:flex;flex-wrap:wrap;gap:8px}
-.notes span{border-radius:999px;padding:7px 16px;border:1px solid var(--line);font-size:13px;color:#c9c9c9;transition:border-color .3s,color .3s}
+.notes span{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,color .3s;border-radius:999px;padding:7px 16px;border:1px solid var(--line);font-size:13px;color:#c9c9c9;transition:border-color .3s,color .3s}
 .item:hover .notes span{border-color:rgba(204,0,0,.45)}
 .right{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
 fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -98,13 +98,29 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 .legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:22px;padding-bottom:30px;background:linear-gradient(var(--line),var(--line)) center top/calc(100% - 56px) 1px no-repeat;color:var(--muted);font-size:13px}
 
 [data-mag]{transition:translate .3s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s,color .3s,filter .3s!important}
+/* animations */
+.bar{position:fixed;left:0;top:0;right:0;height:2px;z-index:99;background:linear-gradient(90deg,var(--crim),var(--blood));transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.go{position:relative;overflow:hidden}
+.go::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-130%);animation:sheen 4.8s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+.item.in .notes span,.item.in .vol label{animation:up .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--k,0)*90ms + .35s)}
+.notes span:nth-child(2),.vol label:nth-of-type(2){--k:1}
+.notes span:nth-child(3),.vol label:nth-of-type(3){--k:2}
+.notes span:nth-child(4){--k:3}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+.item:hover .notes span{transform:translateY(-3px)}
+.item:hover .notes span:nth-child(2){transition-delay:.05s}
+.item:hover .notes span:nth-child(3){transition-delay:.1s}
+.item:hover .notes span:nth-child(4){transition-delay:.15s}
+.mark.in{animation:breathe 5s ease-in-out infinite alternate}
+@keyframes breathe{from{opacity:.6}to{opacity:1}}
 @media(max-width:860px){.cols{grid-template-columns:1fr 1fr}.cta{padding:80px 0 48px}.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
 </style>
 </head>
 <body>
 <div class="spot" id="spot"></div><div class="noise"></div>
-<div class="cur-ring" id="ring"></div><div class="cur-dot" id="dot"></div>
+<div class="bar" id="bar"></div><div class="cur-ring" id="ring"></div><div class="cur-dot" id="dot"></div>
 
 <header class="hero" id="top">
   <div class="wrap" style="display:flex;flex-direction:column;flex:1;width:100%">
@@ -186,11 +202,24 @@ $("list").innerHTML = PERFUMES.map((p, i) => `
   </div>
 </article>`).join("");
 
+const shown = {};
+function rollPrice(i, to) {
+  const el = $("p" + i), from = shown[i] ?? PRICES[VOLUMES[0]];
+  shown[i] = to; cancelAnimationFrame(el._r);
+  if (calm) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), d = 450;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / d), ease = 1 - Math.pow(1 - k, 3);
+    el.textContent = fmt(Math.round(from + (to - from) * ease));
+    if (k < 1) el._r = requestAnimationFrame(step);
+  };
+  el._r = requestAnimationFrame(step);
+}
 $("list").addEventListener("change", e => {
   if (e.target.type !== "radio") return;
   const i = +e.target.name.slice(1);
   state[i] = +e.target.value;
-  $("p" + i).textContent = fmt(PRICES[state[i]]);
+  rollPrice(i, PRICES[state[i]]);
 });
 
 /* footer links */
@@ -198,23 +227,36 @@ $("f-tg").href = TG_CHANNEL; $("f-tg2").href = TG_CHANNEL; $("f-tg2").textConten
 $("f-prices").innerHTML = VOLUMES.map(v => `<span>${v} мл — ${fmt(PRICES[v])}</span>`).join("");
 $("f-year").textContent = new Date().getFullYear();
 
+/* scroll progress */
+const bar = $("bar");
+const prog = () => { const m = document.documentElement.scrollHeight - innerHeight; bar.style.setProperty("--p", m > 0 ? Math.min(1, scrollY / m) : 0); };
+addEventListener("scroll", prog, { passive: true }); addEventListener("resize", prog); prog();
+
 /* scroll reveal */
 const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .15 });
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
 
 /* cursor, spotlight, hero mask, magnetic */
 const spot = $("spot"), dot = $("dot"), ring = $("ring"), h1 = $("h1");
+let lastMove = 0, heroVis = true, hx = h1.offsetWidth * .5, hy = h1.offsetHeight * .5, gx = hx, gy = hy;
+new IntersectionObserver(es => heroVis = es[0].isIntersecting).observe(h1);
 let tx = innerWidth / 2, ty = innerHeight / 2, sx = tx, sy = ty, rx = tx, ry = ty;
 addEventListener("pointermove", e => {
   tx = e.clientX; ty = e.clientY;
   if (fine) { document.body.classList.add("cc"); dot.style.transform = `translate(${tx}px,${ty}px)`; }
   const r = h1.getBoundingClientRect();
-  h1.style.setProperty("--hx", (tx - r.left) + "px"); h1.style.setProperty("--hy", (ty - r.top) + "px");
+  lastMove = performance.now(); gx = tx - r.left; gy = ty - r.top;
 }, { passive: true });
 document.documentElement.addEventListener("pointerleave", () => document.body.classList.remove("cc"));
 (function loop() {
   sx += (tx - sx) * .08; sy += (ty - sy) * .08; rx += (tx - rx) * .22; ry += (ty - ry) * .22;
   spot.style.transform = `translate(${sx}px,${sy}px)`;
+  if (!calm && heroVis) {
+    const now = performance.now();
+    if (now - lastMove > 2000) { gx = (.5 + .5 * Math.sin(now / 1500)) * h1.offsetWidth; gy = (.5 + .5 * Math.cos(now / 2100)) * h1.offsetHeight; }
+    hx += (gx - hx) * .1; hy += (gy - hy) * .1;
+    h1.style.setProperty("--hx", hx + "px"); h1.style.setProperty("--hy", hy + "px");
+  }
   ring.style.transform = `translate(${rx}px,${ry}px)`;
   requestAnimationFrame(loop);
 })();
