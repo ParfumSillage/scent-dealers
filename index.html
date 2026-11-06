@@ -85,7 +85,7 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 .buy{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .price{font-weight:900;font-size:clamp(36px,5vw,56px);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .price small{font-size:17px;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:0}
-.order{border-radius:999px;font:inherit;font-weight:500;letter-spacing:.04em;color:var(--text);background:transparent;border:1px solid rgba(255,255,255,.6);padding:17px 34px;cursor:pointer;transition:background .3s,border-color .3s,color .3s;will-change:transform}
+.order{display:inline-block;text-decoration:none;line-height:normal;border-radius:999px;font:inherit;font-weight:500;letter-spacing:.04em;color:var(--text);background:transparent;border:1px solid rgba(255,255,255,.6);padding:17px 34px;cursor:pointer;transition:background .3s,border-color .3s,color .3s;will-change:transform}
 .order:hover{background:linear-gradient(120deg,var(--crim),var(--blood));border-color:var(--blood);color:#fff}
 .foot{position:relative;z-index:2;overflow:hidden;border-top:1px solid var(--line)}
 .cta{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;flex-wrap:wrap;padding:110px 0 72px}
@@ -98,33 +98,6 @@ fieldset{border:0;min-width:0;position:relative;display:grid;grid-template-colum
 .legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:22px;padding-bottom:30px;background:linear-gradient(var(--line),var(--line)) center top/calc(100% - 56px) 1px no-repeat;color:var(--muted);font-size:13px}
 
 [data-mag]{transition:translate .3s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s,color .3s,filter .3s!important}
-body:has(dialog[open]){overflow:hidden}
-body.nm .cur-dot,body.nm .cur-ring{opacity:0!important}
-body.cc.nm *{cursor:auto!important}
-body.cc.nm a,body.cc.nm button{cursor:pointer!important}
-
-/* modal */
-dialog{border-radius:28px;margin:auto;width:min(480px,calc(100% - 28px));color:var(--text);padding:36px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(139,0,0,.12));backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);overflow-y:auto;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
-dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
-dialog[open]{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
-dialog[open]::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--blood),transparent);animation:scan .9s ease-out}
-@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
-@keyframes scan{from{top:0;opacity:1}to{top:100%;opacity:0}}
-dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:22px}
-.sum div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid var(--line)}
-.sum div:last-child{border-bottom:1px solid var(--line)}
-.sum span{color:var(--muted)}
-.sum b{text-align:right;font-weight:500}
-.sum .total b{font-size:26px;font-weight:900;color:#ff3b3b}
-pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line);background:rgba(0,0,0,.35);font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#cfcfcf;white-space:pre-wrap}
-.acts{display:grid;gap:10px;margin-top:20px}
-.btn{border-radius:999px;font:inherit;font-weight:500;padding:16px;text-align:center;text-decoration:none;cursor:pointer;border:1px solid var(--blood);background:linear-gradient(120deg,var(--crim),var(--blood));color:#fff;transition:filter .3s}
-.btn:hover{filter:brightness(1.2)}
-.btn.g{background:transparent;border-color:var(--line);color:var(--text)}
-.btn.g:hover{border-color:rgba(255,255,255,.4);filter:none}
-.ok{margin-top:14px;min-height:22px;font-size:14px;color:#ff6a6a;opacity:0;transform:translateY(6px);transition:.35s}
-.ok.show{opacity:1;transform:none}
-
 @media(max-width:860px){.cols{grid-template-columns:1fr 1fr}.cta{padding:80px 0 48px}.item{grid-template-columns:1fr;gap:28px}.top{font-size:11px}.catalog{padding-top:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
 </style>
@@ -151,7 +124,7 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
 <main class="wrap catalog" id="catalog">
   <div class="head">
     <h2 class="rv">Каталог</h2>
-    <p class="rv" style="--d:.15s">1 мл коштує 70 грн. Доступні об’єми: 3, 5 та 10 мл.</p>
+    <p class="rv" style="--d:.15s">Оберіть об’єм: 3, 5 або 10 мл.</p>
   </div>
   <div id="list"></div>
 </main>
@@ -169,34 +142,19 @@ pre{border-radius:16px;margin-top:20px;padding:16px;border:1px solid var(--line)
     </div>
   </div>
   <div class="mark rv" aria-hidden="true">Розпив</div>
-  <div class="wrap legal"><span>© <span id="f-year" style="display:inline;padding:0;font-size:inherit;color:inherit"></span> Розпив. Оригінальна парфумерія.</span><span>1 мл — 70 грн</span></div>
+  <div class="wrap legal"><span>© <span id="f-year" style="display:inline;padding:0;font-size:inherit;color:inherit"></span> Розпив. Оригінальна парфумерія.</span><span>Розпив від 3 мл</span></div>
 </footer>
 
-<dialog id="modal" aria-labelledby="mt">
-  <h4 id="mt">Ваше замовлення</h4>
-  <div class="sum">
-    <div><span>Аромат</span><b id="m-name"></b></div>
-    <div><span>Об’єм</span><b id="m-vol"></b></div>
-    <div class="total"><span>Разом</span><b id="m-sum"></b></div>
-  </div>
-  <pre id="m-text"></pre>
-  <div class="acts">
-    <a class="btn" id="tg" target="_blank" rel="noopener">Надіслати в Telegram</a>
-    <button class="btn g" id="copy" type="button">Скопіювати замовлення</button>
-    <button class="btn g" id="close" type="button">Закрити</button>
-  </div>
-  <p class="ok" id="ok" role="status">Скопійовано в буфер обміну</p>
-</dialog>
 
 <script>
-// Впишіть свій Telegram-username без @
-const TG_USERNAME = "your_username";
+const TG_CHANNEL = "https://t.me/parfumsillage";
 
-const PRICE_PER_ML = 70, VOLUMES = [3, 5, 10];
+const VOLUMES = [3, 5, 10];
+const PRICES = { 3: 210, 5: 360, 10: 700 };
 const PERFUMES = [
-  { maker: "Emporio Armani", name: "Stronger With You Intensely", notes: ["Ваніль", "Кориця", "Каштан"] },
-  { maker: "Jean Paul Gaultier", name: "Le Male Le Parfum", notes: ["Кардамон", "Лаванда", "Ірис", "Ваніль"] },
-  { maker: "Valentino", name: "Uomo Born in Roma Intense", notes: ["Шавлія", "Імбир", "Ветивер", "Ваніль"] }
+  { maker: "Emporio Armani", name: "Stronger With You Intensely", link: "https://t.me/parfumsillage/9", notes: ["Ваніль", "Кориця", "Каштан"] },
+  { maker: "Jean Paul Gaultier", name: "Le Male Le Parfum", link: "https://t.me/parfumsillage/11", notes: ["Кардамон", "Лаванда", "Ірис", "Ваніль"] },
+  { maker: "Valentino", name: "Uomo Born in Roma Intense", link: "https://t.me/parfumsillage/29", notes: ["Шавлія", "Імбир", "Ветивер", "Ваніль"] }
 ];
 const fmt = n => n.toLocaleString("uk-UA") + " грн";
 const $ = id => document.getElementById(id);
@@ -204,7 +162,7 @@ const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 const calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 /* marquee */
-$("mq").innerHTML = Array(4).fill(["Original", "Розпив від 3 мл", "70 грн / мл", "Armani", "Gaultier", "Valentino"].map(t => t + '<i>/</i>').join("")).join("");
+$("mq").innerHTML = Array(4).fill(["Original", "Розпив від 3 мл", "від 210 грн", "Armani", "Gaultier", "Valentino"].map(t => t + '<i>/</i>').join("")).join("");
 
 /* catalog */
 const state = PERFUMES.map(() => VOLUMES[0]);
@@ -218,11 +176,11 @@ $("list").innerHTML = PERFUMES.map((p, i) => `
   <div class="right">
     <fieldset class="vol" aria-label="Об’єм: ${p.name}">
       ${VOLUMES.map(v => `<input type="radio" name="v${i}" id="v${i}-${v}" value="${v}" ${v === VOLUMES[0] ? "checked" : ""}>
-      <label for="v${i}-${v}" data-mag><b>${v} мл</b><small>${fmt(v * PRICE_PER_ML)}</small></label>`).join("")}
+      <label for="v${i}-${v}" data-mag><b>${v} мл</b><small>${fmt(PRICES[v])}</small></label>`).join("")}
     </fieldset>
     <div class="buy">
-      <div class="price" id="p${i}" aria-live="polite">${fmt(VOLUMES[0] * PRICE_PER_ML)}</div>
-      <button class="order" type="button" data-i="${i}" data-mag>Замовити</button>
+      <div class="price" id="p${i}" aria-live="polite">${fmt(PRICES[VOLUMES[0]])}</div>
+      <a class="order" href="${p.link}" target="_blank" rel="noopener" data-mag>Замовити</a>
     </div>
   </div>
 </article>`).join("");
@@ -231,51 +189,13 @@ $("list").addEventListener("change", e => {
   if (e.target.type !== "radio") return;
   const i = +e.target.name.slice(1);
   state[i] = +e.target.value;
-  $("p" + i).textContent = fmt(state[i] * PRICE_PER_ML);
+  $("p" + i).textContent = fmt(PRICES[state[i]]);
 });
 
-/* modal */
-const tgLink = `https://t.me/${TG_USERNAME}`;
-$("f-tg").href = tgLink; $("f-tg2").href = tgLink; $("f-tg2").textContent = "@" + TG_USERNAME;
-$("f-prices").innerHTML = VOLUMES.map(v => `<span>${v} мл — ${fmt(v * PRICE_PER_ML)}</span>`).join("");
+/* footer links */
+$("f-tg").href = TG_CHANNEL; $("f-tg2").href = TG_CHANNEL; $("f-tg2").textContent = "@parfumsillage";
+$("f-prices").innerHTML = VOLUMES.map(v => `<span>${v} мл — ${fmt(PRICES[v])}</span>`).join("");
 $("f-year").textContent = new Date().getFullYear();
-
-const modal = $("modal");
-let text = "";
-$("list").addEventListener("click", e => {
-  const b = e.target.closest(".order"); if (!b) return;
-  const i = +b.dataset.i, p = PERFUMES[i], ml = state[i], sum = ml * PRICE_PER_ML, full = `${p.maker} — ${p.name}`;
-  $("m-name").textContent = full; $("m-vol").textContent = ml + " мл"; $("m-sum").textContent = fmt(sum);
-  text = `Доброго дня! Хочу замовити розпив:\n${full}\nОб’єм: ${ml} мл\nСума: ${fmt(sum)}`;
-  $("m-text").textContent = text;
-  $("tg").href = `https://t.me/${TG_USERNAME}?text=${encodeURIComponent(text)}`;
-  $("ok").classList.remove("show");
-  document.body.classList.add("nm");
-  modal.showModal();
-});
-modal.addEventListener("close", () => document.body.classList.remove("nm"));
-async function copyText(t) {
-  try { await navigator.clipboard.writeText(t); return true; }
-  catch {
-    const a = document.createElement("textarea");
-    a.value = t; a.style.cssText = "position:fixed;opacity:0;left:0;top:0";
-    modal.appendChild(a); a.select();
-    let done = false;
-    try { done = document.execCommand("copy"); } catch {}
-    a.remove(); return done;
-  }
-}
-$("close").onclick = () => modal.close();
-modal.addEventListener("click", e => {
-  if (e.target !== modal) return;
-  const b = modal.getBoundingClientRect();
-  if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) modal.close();
-});
-$("copy").onclick = async () => {
-  const ok = $("ok");
-  ok.textContent = (await copyText(text)) ? "Скопійовано в буфер обміну" : "Не вдалося скопіювати. Виділіть текст вручну.";
-  ok.classList.add("show"); clearTimeout(ok.t); ok.t = setTimeout(() => ok.classList.remove("show"), 2200);
-};
 
 /* scroll reveal */
 const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .15 });
