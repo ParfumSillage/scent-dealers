@@ -209,7 +209,7 @@ dialog h4{font-weight:900;font-size:28px;letter-spacing:-.03em;margin-bottom:16p
       <label>Коментар<textarea name="comment" rows="2" maxlength="300"></textarea></label>
       <fieldset class="pay">
         <legend>Спосіб оплати</legend>
-        <input type="radio" name="pay" id="pay-pre" value="pre" checked><label for="pay-pre">Передоплата</label>
+        <input type="radio" name="pay" id="pay-pre" value="pre" checked><label for="pay-pre">Повна оплата</label>
         <input type="radio" name="pay" id="pay-cod" value="cod"><label for="pay-cod">Накладений платіж</label>
       </fieldset>
       <p class="err" id="err" role="alert"></p>
@@ -362,7 +362,7 @@ form.addEventListener("submit", async e => {
   if (!d.name.trim() || !d.contact.trim() || !d.city.trim() || !d.np.trim()) { err.textContent = "Заповніть ПІБ, телефон, місто і область та відділення Нової пошти."; return; }
   if (d.contact.replace(/\D/g, "").length < 10) { err.textContent = "Вкажіть коректний номер телефону."; return; }
   btn.disabled = true; btn.textContent = "Надсилаємо…";
-  const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nОплата: ${d.pay === "cod" ? "Накладений платіж" : "ПЕРЕДОПЛАТА (очікує оплату)"}\nПІБ: ${d.name}\nТелефон: ${d.contact}\nМісто і область: ${d.city}\nВідділення Нової пошти: ${d.np}\nКоментар: ${d.comment || "-"}`;
+  const text = `Замовлення:\n${cart.map(x => `${itemName(x)}, ${x.ml} мл × ${x.q} = ${fmt(PRICES[x.ml] * x.q)}`).join("\n")}\nРазом: ${fmt(total())}\nОплата: ${d.pay === "cod" ? "Накладений платіж" : "ПОВНА ОПЛАТА (очікує оплату)"}\nПІБ: ${d.name}\nТелефон: ${d.contact}\nМісто і область: ${d.city}\nВідділення Нової пошти: ${d.np}\nКоментар: ${d.comment || "-"}`;
   try {
     if (!ORDER_ENDPOINT) throw new Error("no endpoint");
     const res = await fetch(ORDER_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ website: d.website, text }) });
